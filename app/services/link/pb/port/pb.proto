@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package link;
+
+import "validate/validate.proto";
+
+option go_package = "link";
+
+//@formatter:off
+
+service LinkDomainService {
+    rpc FindAllLinks    (FindAllLinksRequest)       returns (FindAllLinksResponse) {}
+
+    rpc SaveLink        (SaveLinkRequest)       returns (SaveLinkResponse) {}
+    rpc SaveLinksBulk   (SaveLinksBulkRequest)  returns (SaveLinksBulkResponse) {}
+}
+
+message FindAllLinksRequest {
+    uint64 Limit  = 1;
+    uint64 Offset = 2;
+}
+
+message FindAllLinksResponse {
+    repeated LinkEntity Items   = 1;
+}
+
+message SaveLinkRequest {
+    LinkEntity Link = 1 [(validate.rules).message.required = true];
+}
+
+message SaveLinkResponse {
+
+}
+
+message SaveLinksBulkRequest {
+    repeated LinkEntity Items = 1;
+}
+
+message SaveLinksBulkResponse {
+
+}
+
+//
+// Shared messages
+//
+
+message LinkEntity {
+    string LinkID                = 1 [(validate.rules).string.min_len = 1];
+    string Name                  = 2 [(validate.rules).string.min_len = 1];
+    string Code                  = 3;
+    repeated string  Alias       = 4;
+    repeated string  Unlocs      = 5;
+
+    string Country               = 6 [(validate.rules).string.min_len = 1];
+    repeated string  Regions     = 7;
+    string Province              = 8;
+    string City                  = 9 [(validate.rules).string.min_len = 1];
+
+    repeated float Coordinates   = 10;
+    string Timezone              = 11;
+}
+
+//
+// Service's error codes
+//
+
+enum LinkDomainServiceErrorCode {
+    Unknown         = 0;
+    Internal        = 5000;
+    InvalidRequest  = 4000;
+}
+
+//@formatter:on
