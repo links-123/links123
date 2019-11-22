@@ -45,19 +45,8 @@ message SaveLinksBulkResponse {
 //
 
 message LinkEntity {
-    string LinkID                = 1 [(validate.rules).string.min_len = 1];
-    string Name                  = 2 [(validate.rules).string.min_len = 1];
-    string Code                  = 3;
-    repeated string  Alias       = 4;
-    repeated string  Unlocs      = 5;
-
-    string Country               = 6 [(validate.rules).string.min_len = 1];
-    repeated string  Regions     = 7;
-    string Province              = 8;
-    string City                  = 9 [(validate.rules).string.min_len = 1];
-
-    repeated float Coordinates   = 10;
-    string Timezone              = 11;
+    string LinkID = 1 [(validate.rules).string.min_len = 1];
+    string Name   = 2 [(validate.rules).string.min_len = 1];
 }
 
 //

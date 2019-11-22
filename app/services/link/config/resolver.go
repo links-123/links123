@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	"github.com/ic2hrmk/ship_links/shared/env"
+	"github.com/ic2hrmk/links123/shared/env"
 )
 
 //

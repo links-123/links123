@@ -3,12 +3,12 @@ package main
 import (
 	"log"
 
-	linkGateway "github.com/ic2hrmk/ship_links/app/gateways/link"
-	linkService "github.com/ic2hrmk/ship_links/app/services/link"
+	linkGateway "github.com/ic2hrmk/links123/app/gateways/link"
+	linkService "github.com/ic2hrmk/links123/app/services/link"
 
-	"github.com/ic2hrmk/ship_links/registry"
-	"github.com/ic2hrmk/ship_links/shared/cmd"
-	"github.com/ic2hrmk/ship_links/shared/env"
+	"github.com/ic2hrmk/links123/registry"
+	"github.com/ic2hrmk/links123/shared/cmd"
+	"github.com/ic2hrmk/links123/shared/env"
 )
 
 //go:generate go run entry.go --kind=link-gtw --address=:8080 --env=docker-compose.env

@@ -4,7 +4,7 @@
 
 FROM golang:1.10
 
-WORKDIR /go/src/github.com/ic2hrmk/ship_links
+WORKDIR /go/src/github.com/ic2hrmk/links123
 COPY . .
 
 RUN go build -o link-service entry/entry.go && mv link-service /go/bin/

@@ -2,12 +2,12 @@ package link
 
 import (
 	"fmt"
-	"github.com/ic2hrmk/ship_links/app/gateways/link/errors"
+	"github.com/ic2hrmk/links123/app/gateways/link/errors"
 	"testing"
 
 	"github.com/go-resty/resty"
-	"github.com/ic2hrmk/ship_links/shared/env"
-	"github.com/ic2hrmk/ship_links/shared/gateway/representation"
+	"github.com/ic2hrmk/links123/shared/env"
+	"github.com/ic2hrmk/links123/shared/gateway/representation"
 )
 
 //

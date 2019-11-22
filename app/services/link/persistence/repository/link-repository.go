@@ -2,7 +2,7 @@ package repository
 
 import (
 	"errors"
-	"github.com/ic2hrmk/ship_links/app/services/link/persistence/model"
+	"github.com/ic2hrmk/links123/app/services/link/persistence/model"
 )
 
 var (

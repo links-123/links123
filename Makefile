@@ -10,9 +10,6 @@ run-dependency-manager:
 build:
 	go build -o link-service entry/entry.go
 
-install-proto-validate:
-	go get -d github.com/lyft/protoc-gen-validate
-
 generate-proto:
 	for service in $(SERVICES) ; do \
 		make -C app/services/$$service gen-proto; \

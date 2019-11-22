@@ -1,17 +1,18 @@
-package link
+package rest
 
 import (
 	"fmt"
 
 	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
-	"github.com/ic2hrmk/links123/app"
-	"github.com/ic2hrmk/links123/app/gateways/link/config"
-	"github.com/ic2hrmk/links123/app/gateways/link/internal"
 	"google.golang.org/grpc"
+
+	"github.com/ic2hrmk/links123/app"
+	"github.com/ic2hrmk/links123/app/gateways/link/rest/config"
+	"github.com/ic2hrmk/links123/app/gateways/link/rest/internal"
 )
 
-const ServiceName = "link-gtw"
+const ServiceName = "link-rest-gtw"
 
 //
 // Service constructor
@@ -30,7 +31,7 @@ func FactoryMethod() (app.MicroService, error) {
 	//
 	// Init. gateway configurations
 	//
-	gatewayConfigurationBuilder := internal.NewLinkGatewayConfigBuilder()
+	gatewayConfigurationBuilder := internal.NewLinkRESTGatewayConfigBuilder()
 
 	// ... set any other configurations here
 

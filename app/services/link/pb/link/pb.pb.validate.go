@@ -18,7 +18,7 @@ import (
 	"github.com/golang/protobuf/ptypes"
 )
 
-// ensure the imlinks are used
+// ensure the imports are used
 var (
 	_ = bytes.MinRead
 	_ = errors.New("")
@@ -32,6 +32,9 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = ptypes.DynamicAny{}
 )
+
+// define the regex for a UUID once up-front
+var _pb_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 // Validate checks the field values on FindAllLinksRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -502,26 +505,6 @@ func (m *LinkEntity) Validate() error {
 			reason: "value length must be at least 1 runes",
 		}
 	}
-
-	// no validation rules for Code
-
-	if utf8.RuneCountInString(m.GetCountry()) < 1 {
-		return LinkEntityValidationError{
-			field:  "Country",
-			reason: "value length must be at least 1 runes",
-		}
-	}
-
-	// no validation rules for Province
-
-	if utf8.RuneCountInString(m.GetCity()) < 1 {
-		return LinkEntityValidationError{
-			field:  "City",
-			reason: "value length must be at least 1 runes",
-		}
-	}
-
-	// no validation rules for Timezone
 
 	return nil
 }

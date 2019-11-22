@@ -1,8 +1,8 @@
 package internal
 
 import (
-	"github.com/ic2hrmk/ship_links/app/services/link/errors"
-	"github.com/ic2hrmk/ship_links/app/services/link/pb/link"
+	"github.com/ic2hrmk/links123/app/services/link/errors"
+	"github.com/ic2hrmk/links123/app/services/link/pb/link"
 	"golang.org/x/net/context"
 )
 
