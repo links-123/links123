@@ -3,7 +3,7 @@ package errors
 import (
 	"log"
 
-	"github.com/ic2hrmk/ship_links/app/services/link/pb/link"
+	"github.com/ic2hrmk/links123/app/services/link/pb/link"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

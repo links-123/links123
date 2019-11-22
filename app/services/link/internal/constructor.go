@@ -2,12 +2,12 @@ package internal
 
 import (
 	"fmt"
-	"github.com/ic2hrmk/ship_links/app/services/link/persistence/repository"
+	"github.com/ic2hrmk/links123/app/services/link/persistence/repository"
 	"net"
 
-	linkPb "github.com/ic2hrmk/ship_links/app/services/link/pb/link"
+	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
-	"github.com/ic2hrmk/ship_links/app"
+	"github.com/ic2hrmk/links123/app"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

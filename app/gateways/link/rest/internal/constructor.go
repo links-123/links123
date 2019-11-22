@@ -52,7 +52,7 @@ type linkDomainGatewayConfig struct {
 type linkDomainGatewayConfigBuilder struct {
 }
 
-func NewLinkGatewayConfigBuilder() *linkDomainGatewayConfigBuilder {
+func NewLinkRESTGatewayConfigBuilder() *linkDomainGatewayConfigBuilder {
 	return &linkDomainGatewayConfigBuilder{}
 }
 

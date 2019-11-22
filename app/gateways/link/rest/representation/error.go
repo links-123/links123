@@ -1,5 +1,5 @@
 package representation
 
-import "github.com/ic2hrmk/ship_links/shared/gateway/representation"
+import "github.com/ic2hrmk/links123/shared/gateway/representation"
 
 type ErrorResponse representation.ErrorResponse

@@ -50,7 +50,7 @@ services:
 
   nginx:
     image: nginx:latest
-    links:
+    ports:
     - "8081:80"
     volumes:
     - ./docker-compose.nginx.conf:/etc/nginx/conf.d/default.conf

@@ -3,8 +3,10 @@ package mongo
 import (
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
-	"github.com/ic2hrmk/ship_links/app/services/link/persistence/model"
-	"github.com/ic2hrmk/ship_links/app/services/link/persistence/repository"
+	"github.com/google/uuid"
+
+	"github.com/ic2hrmk/links123/app/services/link/persistence/model"
+	"github.com/ic2hrmk/links123/app/services/link/persistence/repository"
 )
 
 const linksCollection = "links"
@@ -22,6 +24,10 @@ func (r *LinkRepository) collection() *mgo.Collection {
 }
 
 func (r *LinkRepository) Save(record *model.Link) (*model.Link, error) {
+	if record.LinkID == "" {
+		record.LinkID = uuid.New().String()
+	}
+
 	_, err := r.collection().Upsert(bson.M{"_id": record.LinkID}, record)
 	if err != nil {
 		return nil, err
@@ -34,6 +40,9 @@ func (r *LinkRepository) SaveBulk(records []*model.Link) error {
 	bulkOperator := r.collection().Bulk()
 
 	for i := range records {
+		if records[i].LinkID == "" {
+			records[i].LinkID = uuid.New().String()
+		}
 		bulkOperator.Upsert(bson.M{"_id": records[i].LinkID}, records[i])
 	}
 

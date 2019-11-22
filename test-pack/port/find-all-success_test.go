@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/go-resty/resty"
-	"github.com/ic2hrmk/ship_links/app/gateways/link/representation"
-	"github.com/ic2hrmk/ship_links/shared/env"
+	"github.com/ic2hrmk/links123/app/gateways/link/representation"
+	"github.com/ic2hrmk/links123/shared/env"
 )
 
 //

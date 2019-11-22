@@ -2,12 +2,12 @@ package internal
 
 import (
 	"context"
-	linkPb "github.com/ic2hrmk/ship_links/app/services/link/pb/link"
+	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
 	"github.com/emicklei/go-restful"
-	"github.com/ic2hrmk/ship_links/app/gateways/link/errors"
-	"github.com/ic2hrmk/ship_links/app/gateways/link/representation"
-	"github.com/ic2hrmk/ship_links/shared/gateway/helpers"
+	"github.com/ic2hrmk/links123/app/gateways/link/errors"
+	"github.com/ic2hrmk/links123/app/gateways/link/representation"
+	"github.com/ic2hrmk/links123/shared/gateway/helpers"
 )
 
 func (rcv *linksGateway) getLinks(

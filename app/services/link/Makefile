@@ -3,7 +3,7 @@ PROTO_FILE=pb/$(SERVICE)/pb.proto
 
 gen-proto:
 	protoc -I/usr/local/include -I. \
-        -I$(GOPATH)/src \
+        -I$(GOPATH)/bin \
         --proto_path=${GOPATH}/src/github.com/lyft/protoc-gen-validate \
         --validate_out="lang=go:." \
         --go_out=plugins=grpc:. \
