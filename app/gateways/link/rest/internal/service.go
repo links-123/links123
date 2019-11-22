@@ -3,9 +3,8 @@ package internal
 import (
 	"net/http"
 
-	"github.com/braintree/manners"
 	"github.com/emicklei/go-restful"
-	"github.com/ic2hrmk/links123/app/gateways/link/representation"
+	"github.com/ic2hrmk/links123/app/gateways/link/rest/representation"
 	"github.com/ic2hrmk/links123/shared/gateway/filters"
 )
 
@@ -35,5 +34,5 @@ func (rcv *linksGateway) Serve(address string) error {
 }
 
 func (rcv *linksGateway) serve(address string) error {
-	return manners.ListenAndServe(address, rcv.webContainer)
+	return http.ListenAndServe(address, rcv.webContainer)
 }

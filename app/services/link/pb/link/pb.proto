@@ -45,8 +45,9 @@ message SaveLinksBulkResponse {
 //
 
 message LinkEntity {
-    string LinkID = 1 [(validate.rules).string.min_len = 1];
-    string Name   = 2 [(validate.rules).string.min_len = 1];
+    string LinkID  = 1 [(validate.rules).string.min_len = 1];
+    string Name    = 2 [(validate.rules).string.min_len = 1];
+    string Address = 3 [(validate.rules).string.min_len = 1];
 }
 
 //

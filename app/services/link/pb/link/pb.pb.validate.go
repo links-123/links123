@@ -197,13 +197,6 @@ func (m *SaveLinkRequest) Validate() error {
 		return nil
 	}
 
-	if m.GetLink() == nil {
-		return SaveLinkRequestValidationError{
-			field:  "Link",
-			reason: "value is required",
-		}
-	}
-
 	if v, ok := interface{}(m.GetLink()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SaveLinkRequestValidationError{
@@ -492,19 +485,11 @@ func (m *LinkEntity) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetLinkID()) < 1 {
-		return LinkEntityValidationError{
-			field:  "LinkID",
-			reason: "value length must be at least 1 runes",
-		}
-	}
+	// no validation rules for LinkID
 
-	if utf8.RuneCountInString(m.GetName()) < 1 {
-		return LinkEntityValidationError{
-			field:  "Name",
-			reason: "value length must be at least 1 runes",
-		}
-	}
+	// no validation rules for Name
+
+	// no validation rules for Address
 
 	return nil
 }

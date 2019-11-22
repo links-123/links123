@@ -1,10 +1,12 @@
+# Application
+links123
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-link-service
 
 # Libraries
 vendor
@@ -17,8 +19,3 @@ vendor
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-
-# IDE
-
-.idea
-

@@ -2,11 +2,12 @@ package internal
 
 import (
 	"context"
+
 	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
 	"github.com/emicklei/go-restful"
-	"github.com/ic2hrmk/links123/app/gateways/link/errors"
-	"github.com/ic2hrmk/links123/app/gateways/link/representation"
+	"github.com/ic2hrmk/links123/app/gateways/link/rest/errors"
+	"github.com/ic2hrmk/links123/app/gateways/link/rest/representation"
 	"github.com/ic2hrmk/links123/shared/gateway/helpers"
 )
 
@@ -54,17 +55,9 @@ func (rcv *linksGateway) getLinks(
 
 	for i, link := range linksDetails.GetItems() {
 		out.Items[i] = &representation.LinkEntityResponse{
-			LinkID:      link.GetLinkID(),
-			Name:        link.GetName(),
-			Code:        link.GetCode(),
-			Alias:       link.GetAlias(),
-			Unlocs:      link.GetUnlocs(),
-			Country:     link.GetCountry(),
-			Regions:     link.GetRegions(),
-			Province:    link.GetProvince(),
-			City:        link.GetCity(),
-			Coordinates: link.GetCoordinates(),
-			Timezone:    link.GetTimezone(),
+			LinkID:  link.GetLinkID(),
+			Name:    link.GetName(),
+			Address: link.GetAddress(),
 		}
 	}
 

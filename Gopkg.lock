@@ -2,14 +2,6 @@
 
 
 [[projects]]
-  digest = "1:57840705195634873ce9e1fa65d87dd1169352f793e6e3cfb81570b95350a79b"
-  name = "github.com/braintree/manners"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "0b5e6b2c2843f4c83c2a40f96980b09cf4af733c"
-  version = "0.4.0"
-
-[[projects]]
   digest = "1:899234af23e5793c34e06fd397f86ba33af5307b959b6a7afd19b63db065a9d7"
   name = "github.com/emicklei/go-restful"
   packages = [
@@ -19,14 +11,6 @@
   pruneopts = "UT"
   revision = "3eb9738c1697594ea6e71a7156a9bb32ed216cf0"
   version = "v2.8.0"
-
-[[projects]]
-  digest = "1:743f8008a7fed04ef0d52261aef346766bbd5b3e360b90296d85289f8ef5c2e2"
-  name = "github.com/envoyproxy/protoc-gen-validate"
-  packages = ["validate"]
-  pruneopts = "UT"
-  revision = "9eff07ddfcb4001aa1aab280648153f46e1a8ddc"
-  version = "v0.1.0"
 
 [[projects]]
   digest = "1:4b08116de0de75c041bb341686f0b139930f26cb84dfdf7641d435548114181d"
@@ -98,6 +82,14 @@
   version = "v1.1.5"
 
 [[projects]]
+  digest = "1:fd54bf7b2ed868354f34178c1d81930250bf978901ad7b0dc649223d79356ae7"
+  name = "github.com/lyft/protoc-gen-validate"
+  packages = ["validate"]
+  pruneopts = "UT"
+  revision = "ff6f7a9bc2e5fe006509b9f8c7594c41a953d50f"
+  version = "v0.0.14"
+
+[[projects]]
   digest = "1:33422d238f147d247752996a26574ac48dcf472976eda7f5134015f06bf16563"
   name = "github.com/modern-go/concurrent"
   packages = ["."]
@@ -112,6 +104,14 @@
   pruneopts = "UT"
   revision = "4b7aa43c6742a2c18fdef89dd197aaae7dac7ccd"
   version = "1.0.1"
+
+[[projects]]
+  digest = "1:cf31692c14422fa27c83a05292eb5cbe0fb2775972e8f1f8446a71549bd8980b"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
+  version = "v0.8.1"
 
 [[projects]]
   branch = "master"
@@ -215,9 +215,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/braintree/manners",
     "github.com/emicklei/go-restful",
-    "github.com/envoyproxy/protoc-gen-validate/validate",
     "github.com/globalsign/mgo",
     "github.com/globalsign/mgo/bson",
     "github.com/go-ozzo/ozzo-validation",
@@ -226,6 +224,8 @@
     "github.com/golang/protobuf/ptypes",
     "github.com/google/uuid",
     "github.com/joho/godotenv",
+    "github.com/lyft/protoc-gen-validate/validate",
+    "github.com/pkg/errors",
     "golang.org/x/net/context",
     "google.golang.org/grpc",
     "google.golang.org/grpc/codes",

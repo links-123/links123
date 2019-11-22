@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Links full REST" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="REST">
+    <module name="links123" />
+    <working_directory value="$PROJECT_DIR$/" />
+    <go_parameters value="-i" />
+    <parameters value="--kind=link-rest-gtw" />
+    <kind value="FILE" />
+    <filePath value="$PROJECT_DIR$/entry/entry.go" />
+    <package value="github.com/ic2hrmk/links123" />
+    <directory value="$PROJECT_DIR$/" />
+    <method v="2" />
+  </configuration>
+</component>

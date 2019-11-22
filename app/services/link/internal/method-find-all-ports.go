@@ -36,17 +36,9 @@ func (rcv *linkDomainService) FindAllLinks(
 
 	for i := range records {
 		out.Items[i] = &link.LinkEntity{
-			LinkID:      records[i].LinkID,
-			Name:        records[i].Name,
-			Code:        records[i].Code,
-			Alias:       records[i].Alias,
-			Unlocs:      records[i].Unlocs,
-			Country:     records[i].Country,
-			Regions:     records[i].Regions,
-			Province:    records[i].Province,
-			City:        records[i].City,
-			Coordinates: records[i].Coordinates,
-			Timezone:    records[i].Timezone,
+			LinkID:  records[i].LinkID,
+			Name:    records[i].Name,
+			Address: records[i].Address,
 		}
 	}
 

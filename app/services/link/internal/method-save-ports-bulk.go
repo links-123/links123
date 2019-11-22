@@ -1,10 +1,11 @@
 package internal
 
 import (
+	"context"
+
 	"github.com/ic2hrmk/links123/app/services/link/errors"
 	"github.com/ic2hrmk/links123/app/services/link/pb/link"
 	"github.com/ic2hrmk/links123/app/services/link/persistence/model"
-	"golang.org/x/net/context"
 )
 
 //
@@ -34,17 +35,9 @@ func (rcv *linkDomainService) SaveLinksBulk(
 
 	for i, linkDetails := range in.GetItems() {
 		records[i] = &model.Link{
-			LinkID:      linkDetails.GetLinkID(),
-			Name:        linkDetails.GetName(),
-			Code:        linkDetails.GetCode(),
-			Alias:       linkDetails.GetAlias(),
-			Unlocs:      linkDetails.GetUnlocs(),
-			Country:     linkDetails.GetCountry(),
-			Regions:     linkDetails.GetRegions(),
-			Province:    linkDetails.GetProvince(),
-			City:        linkDetails.GetCity(),
-			Coordinates: linkDetails.GetCoordinates(),
-			Timezone:    linkDetails.GetTimezone(),
+			LinkID:  linkDetails.GetLinkID(),
+			Name:    linkDetails.GetName(),
+			Address: linkDetails.GetAddress(),
 		}
 	}
 

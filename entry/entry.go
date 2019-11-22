@@ -1,24 +1,38 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
-	linkGateway "github.com/ic2hrmk/links123/app/gateways/link"
+	linkRESTGateway "github.com/ic2hrmk/links123/app/gateways/link/rest"
 	linkService "github.com/ic2hrmk/links123/app/services/link"
 
 	"github.com/ic2hrmk/links123/registry"
 	"github.com/ic2hrmk/links123/shared/cmd"
 	"github.com/ic2hrmk/links123/shared/env"
+	"github.com/ic2hrmk/links123/shared/version"
 )
 
-//go:generate go run entry.go --kind=link-gtw --address=:8080 --env=docker-compose.env
-//go:generate go run entry.go --kind=link-srv --address=:10001 --env=.env
+const ApplicationName = "links123"
+
+func printVersion() {
+	fmt.Printf("%s %s\n", ApplicationName, version.GetVersion())
+}
 
 func main() {
+	printVersion()
+
 	//
 	// Load startup flags
 	//
 	flags := cmd.LoadFlags()
+
+	//
+	// Check for version request
+	//
+	if flags.ShowVersionOnly {
+		return
+	}
 
 	//
 	// Load env.
@@ -35,7 +49,7 @@ func main() {
 	//
 	reg := registry.NewRegistryContainer()
 
-	reg.Add(linkGateway.ServiceName, linkGateway.FactoryMethod)
+	reg.Add(linkRESTGateway.ServiceName, linkRESTGateway.FactoryMethod)
 	reg.Add(linkService.ServiceName, linkService.FactoryMethod)
 
 	serviceFactory, err := reg.Get(flags.Kind)

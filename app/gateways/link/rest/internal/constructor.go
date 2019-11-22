@@ -3,9 +3,11 @@ package internal
 import (
 	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
+	"github.com/ic2hrmk/links123/app"
+
 	"github.com/emicklei/go-restful"
 	"github.com/go-ozzo/ozzo-validation"
-	"github.com/ic2hrmk/links123/app"
+	"github.com/pkg/errors"
 )
 
 //
@@ -61,7 +63,7 @@ func NewLinkRESTGatewayConfigBuilder() *linkDomainGatewayConfigBuilder {
 //
 func (rcv *linkDomainGatewayConfigBuilder) Build() (*linkDomainGatewayConfig, error) {
 	if err := rcv.Validate(); err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "configuration is invalid")
 	}
 
 	return &linkDomainGatewayConfig{}, nil
@@ -71,6 +73,5 @@ func (rcv *linkDomainGatewayConfigBuilder) Build() (*linkDomainGatewayConfig, er
 // Validates acquired settings
 //
 func (rcv *linkDomainGatewayConfigBuilder) Validate() error {
-	return validation.ValidateStruct(rcv,
-	)
+	return validation.ValidateStruct(rcv)
 }

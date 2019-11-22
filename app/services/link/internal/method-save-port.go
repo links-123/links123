@@ -24,17 +24,9 @@ func (rcv *linkDomainService) SaveLink(
 	// Request handing
 	//
 	if _, err := rcv.linkRepository.Save(&model.Link{
-		LinkID:      in.GetLink().GetLinkID(),
-		Name:        in.GetLink().GetName(),
-		Code:        in.GetLink().GetCode(),
-		Alias:       in.GetLink().GetAlias(),
-		Unlocs:      in.GetLink().GetUnlocs(),
-		Country:     in.GetLink().GetCountry(),
-		Regions:     in.GetLink().GetRegions(),
-		Province:    in.GetLink().GetProvince(),
-		City:        in.GetLink().GetCity(),
-		Coordinates: in.GetLink().GetCoordinates(),
-		Timezone:    in.GetLink().GetTimezone(),
+		LinkID:  in.GetLink().GetLinkID(),
+		Name:    in.GetLink().GetName(),
+		Address: in.GetLink().GetAddress(),
 	}); err != nil {
 		return nil, errors.Internal(err)
 	}

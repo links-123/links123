@@ -5,27 +5,27 @@ volumes:
     external: true
 
 services:
-#  link-gtw:
-#    image: golang:1.10-alpine
-#    env_file:
-#    - docker-compose.env
-#    volumes:
-#    - .:/go/src/github.com/ic2hrmk/links123/
-#    working_dir: /go/src/github.com/ic2hrmk/links123/
-#    command: go run ./entry/entry.go --kind=link-gtw --address=:8080
-#    restart: always
+  link-rest-gtw:
+    image: golang:1.10-alpine
+    env_file:
+      - docker-compose.env
+    volumes:
+      - .:/go/src/github.com/ic2hrmk/links123/
+    working_dir: /go/src/github.com/ic2hrmk/links123/
+    command: go run ./entry/entry.go --kind=link-rest-gtw --address=:8080
+    restart: always
 
-#  link-srv:
-#    image: golang:1.10-alpine
-#    env_file:
-#    - docker-compose.env
-#    volumes:
-#    - .:/go/src/github.com/ic2hrmk/links123/
-#    working_dir: /go/src/github.com/ic2hrmk/links123/
-#    command: go run ./entry/entry.go --kind=link-srv --address=:10001
-#    restart: always
-#    depends_on:
-#      - mongo
+  link-srv:
+    image: golang:1.10-alpine
+    env_file:
+      - docker-compose.env
+    volumes:
+      - .:/go/src/github.com/ic2hrmk/links123/
+    working_dir: /go/src/github.com/ic2hrmk/links123/
+    command: go run ./entry/entry.go --kind=link-srv --address=:10001
+    restart: always
+    depends_on:
+      - mongo
 
   #
   # 3-rd parties
@@ -48,13 +48,14 @@ services:
     depends_on:
       - mongo
 
-# NOTE: DISABLED because no rest services are ready yet
-#  nginx:
-#    image: nginx:1.17.6
-#    ports:
-#    - "8081:80"
-#    volumes:
-#    - ./docker-compose.nginx.conf:/etc/nginx/conf.d/default.conf
-#    restart: always
-#    logging:
-#      driver: none
+  nginx:
+    image: nginx:1.17.6
+    ports:
+      - "8081:80"
+    volumes:
+      - ./docker-compose.nginx.conf:/etc/nginx/conf.d/default.conf
+    restart: always
+    logging:
+      driver: none
+    depends_on:
+      - link-rest-gtw
