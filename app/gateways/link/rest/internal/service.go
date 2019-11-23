@@ -1,9 +1,11 @@
 package internal
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/emicklei/go-restful"
+
 	"github.com/ic2hrmk/links123/app/gateways/link/rest/representation"
 	"github.com/ic2hrmk/links123/shared/gateway/filters"
 )
@@ -29,10 +31,8 @@ func (rcv *linksGateway) init() {
 	rcv.webContainer.Add(ws)
 }
 
-func (rcv *linksGateway) Serve(address string) error {
-	return rcv.serve(address)
-}
-
-func (rcv *linksGateway) serve(address string) error {
-	return http.ListenAndServe(address, rcv.webContainer)
+func (rcv *linksGateway) Serve() error {
+	log.Printf("service is available via [http] at address [%s]",
+		rcv.configurations.serveAddress)
+	return http.ListenAndServe(rcv.configurations.serveAddress, rcv.webContainer)
 }

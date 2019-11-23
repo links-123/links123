@@ -6,7 +6,7 @@ import (
 	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
 	"github.com/emicklei/go-restful"
-	"github.com/ic2hrmk/links123/app/gateways/link/rest/errors"
+
 	"github.com/ic2hrmk/links123/app/gateways/link/rest/representation"
 	"github.com/ic2hrmk/links123/shared/gateway/helpers"
 )
@@ -22,12 +22,12 @@ func (rcv *linksGateway) getLinks(
 	// Get limit and offset
 	//
 	if limit, err = getLimitParameter(request); err != nil {
-		helpers.ResponseWithBadRequest(response, err, errors.ErrInvalidLimitParameter)
+		helpers.ResponseWithBadRequest(response, err, ErrInvalidLimitParameter)
 		return
 	}
 
 	if offset, err = getOffsetParameter(request); err != nil {
-		helpers.ResponseWithBadRequest(response, err, errors.ErrInvalidOffsetParameter)
+		helpers.ResponseWithBadRequest(response, err, ErrInvalidOffsetParameter)
 		return
 	}
 

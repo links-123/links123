@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All" type="CompoundRunConfigurationType">
+    <toRun name="Links full REST" type="GoApplicationRunConfiguration" />
+    <toRun name="Links back service" type="GoApplicationRunConfiguration" />
+    <method v="2" />
+  </configuration>
+</component>

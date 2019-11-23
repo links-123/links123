@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/pkg/errors"
 	"log"
 
 	linkRESTGateway "github.com/ic2hrmk/links123/app/gateways/link/rest"
@@ -40,21 +41,21 @@ func main() {
 	if flags.EnvFile != "" {
 		err := env.LoadEnvFile(flags.EnvFile)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal(errors.Wrap(err, "failed to load environment configurations"))
 		}
 	}
 
 	//
 	// Select service
 	//
-	reg := registry.NewRegistryContainer()
+	registryContainer := registry.NewRegistryContainer()
 
-	reg.Add(linkRESTGateway.ServiceName, linkRESTGateway.FactoryMethod)
-	reg.Add(linkService.ServiceName, linkService.FactoryMethod)
+	registryContainer.Add(linkRESTGateway.ServiceName, linkRESTGateway.FactoryMethod)
+	registryContainer.Add(linkService.ServiceName, linkService.FactoryMethod)
 
-	serviceFactory, err := reg.Get(flags.Kind)
+	serviceFactory, err := registryContainer.Get(flags.Kind)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(errors.Wrap(err, "failed to initialize service"))
 	}
 
 	//
@@ -62,12 +63,12 @@ func main() {
 	//
 	service, err := serviceFactory()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(errors.Wrapf(err, "failed to initialize application [%s]", flags.Kind))
 	}
 
 	//
 	// Run till the death comes
 	//
-	log.Printf("[%s] started serving on '%s'", flags.Kind, flags.Address)
-	log.Fatal(service.Serve(flags.Address))
+	log.Printf("service [%s] is started", flags.Kind)
+	log.Fatal(service.Serve())
 }

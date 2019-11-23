@@ -8,11 +8,13 @@ import (
 // All available configurations for the micro-service
 //
 type ConfigurationContainer struct {
-	MongoURL string
+	MongoURL     string
+	ServeAddress string
 }
 
 func (c *ConfigurationContainer) Validate() error {
 	return validation.ValidateStruct(c,
 		validation.Field(&c.MongoURL, validation.Required),
+		validation.Field(&c.ServeAddress, validation.Required),
 	)
 }

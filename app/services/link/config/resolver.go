@@ -1,7 +1,7 @@
 package config
 
 import (
-	"fmt"
+	"github.com/pkg/errors"
 
 	"github.com/ic2hrmk/links123/shared/env"
 )
@@ -10,7 +10,8 @@ import (
 // All env. vars that are used by service
 //
 const (
-	mongoURL = "MONGO_URL"
+	mongoURL           = "MONGO_URL"
+	serviceLinkAddress = "SERVICE_LINK_ADDRESS"
 )
 
 //
@@ -37,7 +38,11 @@ func resolveEnvConfiguration(config *ConfigurationContainer) error {
 	}
 
 	if config.MongoURL, err = env.GetStringVar(mongoURL); err != nil {
-		return fmt.Errorf("failed to read env. var [%s]: %s", mongoURL, err)
+		return errors.Errorf("failed to read env. var [%s]: %s", mongoURL, err)
+	}
+
+	if config.ServeAddress, err = env.GetStringVar(serviceLinkAddress); err != nil {
+		return errors.Errorf("failed to read env. var [%s]: %s", serviceLinkAddress, err)
 	}
 
 	return nil

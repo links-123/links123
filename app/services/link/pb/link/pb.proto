@@ -9,8 +9,7 @@ option go_package = "link";
 //@formatter:off
 
 service LinkDomainService {
-    rpc FindAllLinks    (FindAllLinksRequest)       returns (FindAllLinksResponse) {}
-
+    rpc FindAllLinks    (FindAllLinksRequest)   returns (FindAllLinksResponse) {}
     rpc SaveLink        (SaveLinkRequest)       returns (SaveLinkResponse) {}
     rpc SaveLinksBulk   (SaveLinksBulkRequest)  returns (SaveLinksBulkResponse) {}
 }
@@ -29,7 +28,7 @@ message SaveLinkRequest {
 }
 
 message SaveLinkResponse {
-
+    LinkEntity Link = 1;
 }
 
 message SaveLinksBulkRequest {
@@ -37,7 +36,7 @@ message SaveLinksBulkRequest {
 }
 
 message SaveLinksBulkResponse {
-
+    repeated LinkEntity Items = 1;
 }
 
 //

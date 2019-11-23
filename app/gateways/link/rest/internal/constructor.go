@@ -14,8 +14,8 @@ import (
 // Link Gateway micro-service
 //
 type linksGateway struct {
-	webContainer *restful.Container
-	config       *linkDomainGatewayConfig
+	webContainer   *restful.Container
+	configurations *linkDomainGatewayConfigurations
 
 	//
 	// Clients to back-services
@@ -24,11 +24,11 @@ type linksGateway struct {
 }
 
 func NewLinkDomainService(
-	config *linkDomainGatewayConfig,
+	config *linkDomainGatewayConfigurations,
 	linkServiceClient linkPb.LinkDomainServiceClient,
 ) app.MicroService {
 	service := &linksGateway{
-		config:            config,
+		configurations:    config,
 		webContainer:      restful.NewContainer(),
 		linkServiceClient: linkServiceClient,
 	}
@@ -45,33 +45,53 @@ func NewLinkDomainService(
 //
 // Configuration container
 //
-type linkDomainGatewayConfig struct {
+type linkDomainGatewayConfigurations struct {
+	linkServiceAddress string
+	serveAddress       string
 }
 
 //
 // Configuration container builder
 //
 type linkDomainGatewayConfigBuilder struct {
+	linkServiceAddress string
+	serveAddress       string
 }
 
 func NewLinkRESTGatewayConfigBuilder() *linkDomainGatewayConfigBuilder {
 	return &linkDomainGatewayConfigBuilder{}
 }
 
+func (rcv *linkDomainGatewayConfigBuilder) SetServeAddress(address string) *linkDomainGatewayConfigBuilder {
+	rcv.serveAddress = address
+	return rcv
+}
+
+func (rcv *linkDomainGatewayConfigBuilder) SetLinkServiceAddress(address string) *linkDomainGatewayConfigBuilder {
+	rcv.linkServiceAddress = address
+	return rcv
+}
+
 //
 // Builds gateway configuration object. It's the only way to initialize it's settings
 //
-func (rcv *linkDomainGatewayConfigBuilder) Build() (*linkDomainGatewayConfig, error) {
+func (rcv *linkDomainGatewayConfigBuilder) Build() (*linkDomainGatewayConfigurations, error) {
 	if err := rcv.Validate(); err != nil {
 		return nil, errors.Wrap(err, "configuration is invalid")
 	}
 
-	return &linkDomainGatewayConfig{}, nil
+	return &linkDomainGatewayConfigurations{
+		linkServiceAddress: rcv.linkServiceAddress,
+		serveAddress:       rcv.serveAddress,
+	}, nil
 }
 
 //
 // Validates acquired settings
 //
 func (rcv *linkDomainGatewayConfigBuilder) Validate() error {
-	return validation.ValidateStruct(rcv)
+	return validation.ValidateStruct(rcv,
+		validation.Field(&rcv.linkServiceAddress, validation.Required),
+		validation.Field(&rcv.serveAddress, validation.Required),
+	)
 }

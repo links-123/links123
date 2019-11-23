@@ -1,8 +1,8 @@
 package mongo
 
 import (
-	"errors"
 	"github.com/globalsign/mgo"
+	"github.com/pkg/errors"
 )
 
 func InitConnection(mongoURL, mongoDB string) (*mgo.Database, error) {
@@ -12,7 +12,7 @@ func InitConnection(mongoURL, mongoDB string) (*mgo.Database, error) {
 
 	session, err := mgo.Dial(mongoURL)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "unable to establish connection to Mongo DB")
 	}
 
 	return session.DB(mongoDB), nil

@@ -1,10 +1,9 @@
 package rest
 
 import (
-	"fmt"
-
 	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
+	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 
 	"github.com/ic2hrmk/links123/app"
@@ -33,7 +32,9 @@ func FactoryMethod() (app.MicroService, error) {
 	//
 	gatewayConfigurationBuilder := internal.NewLinkRESTGatewayConfigBuilder()
 
-	// ... set any other configurations here
+	gatewayConfigurationBuilder.
+		SetLinkServiceAddress(configurations.LinkDomainServiceAddress).
+		SetServeAddress(configurations.ServeAddress)
 
 	gatewayConfiguration, err := gatewayConfigurationBuilder.Build()
 	if err != nil {
@@ -45,7 +46,7 @@ func FactoryMethod() (app.MicroService, error) {
 	//
 	linkServiceClient, err := initLinkServiceClient(configurations.LinkDomainServiceAddress)
 	if err != nil {
-		return nil, fmt.Errorf("failed to init. link service client, %s", err)
+		return nil, errors.Errorf("failed to init. link service client, %s", err)
 	}
 
 	return internal.NewLinkDomainService(
@@ -63,7 +64,7 @@ func initLinkServiceClient(address string) (linkPb.LinkDomainServiceClient, erro
 
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
-		return nil, fmt.Errorf("did not connect: %s", err)
+		return nil, errors.Errorf("unable to connect: %s", err)
 	}
 
 	return linkPb.NewLinkDomainServiceClient(conn), nil

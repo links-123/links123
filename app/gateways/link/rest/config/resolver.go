@@ -10,7 +10,8 @@ import (
 // All env. vars that are used by service
 //
 const (
-	linkServiceAddress = "SERVICE_LINK_ADDRESS"
+	linkServiceAddress  = "SERVICE_LINK_ADDRESS"
+	gatewayServeAddress = "GATEWAY_REST_LINK_ADDRESS"
 )
 
 //
@@ -38,6 +39,10 @@ func resolveEnvConfiguration(config *ConfigurationContainer) error {
 
 	if config.LinkDomainServiceAddress, err = env.GetStringVar(linkServiceAddress); err != nil {
 		return fmt.Errorf("failed to read env. var [%s]: %s", linkServiceAddress, err)
+	}
+
+	if config.ServeAddress, err = env.GetStringVar(gatewayServeAddress); err != nil {
+		return fmt.Errorf("failed to read env. var [%s]: %s", gatewayServeAddress, err)
 	}
 
 	return nil

@@ -1,4 +1,4 @@
-package errors
+package internal
 
 import (
 	"log"
@@ -8,12 +8,12 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func Internal(err error) error {
-	log.Printf("[link-srv] Internal error: %s", err)
+func (rcv *linkDomainService) wrapInternalError(err error) error {
+	log.Printf("[link-srv] wrapInternalError error: %s", err)
 	return status.Error(codes.Code(link.LinkDomainServiceErrorCode_Internal), err.Error())
 }
 
-func InvalidRequest(err error) error {
+func (rcv *linkDomainService) wrapInvalidRequest(err error) error {
 	log.Printf("[link-srv] Invalid request: %s", err)
 	return status.Error(codes.Code(link.LinkDomainServiceErrorCode_InvalidRequest), err.Error())
 }

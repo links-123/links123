@@ -2,6 +2,7 @@ package link
 
 import (
 	sharedMongo "github.com/ic2hrmk/links123/shared/persistence/mongo"
+	"github.com/pkg/errors"
 
 	"github.com/globalsign/mgo"
 	"github.com/ic2hrmk/links123/app"
@@ -26,6 +27,20 @@ func FactoryMethod() (app.MicroService, error) {
 	}
 
 	//
+	// Init. service configurations
+	//
+	serviceConfigurationBuilder := internal.NewLinkDomainServiceConfigBuilder()
+
+	serviceConfigurationBuilder.
+		SetMongoURL(configurations.MongoURL).
+		SetServeAddress(configurations.ServeAddress)
+
+	serviceConfiguration, err := serviceConfigurationBuilder.Build()
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to compose service configurations")
+	}
+
+	//
 	// Init. persistence
 	//
 	mongoDB, err := initMongoDB(configurations.MongoURL, ServiceName)
@@ -33,10 +48,10 @@ func FactoryMethod() (app.MicroService, error) {
 		return nil, err
 	}
 
-	// Init. link repository
 	linkRepository := mongo.NewLinkRepository(mongoDB)
 
 	return internal.NewLinkDomainService(
+		serviceConfiguration,
 		linkRepository,
 	), nil
 }

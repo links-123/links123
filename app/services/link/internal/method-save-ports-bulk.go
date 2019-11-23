@@ -3,7 +3,8 @@ package internal
 import (
 	"context"
 
-	"github.com/ic2hrmk/links123/app/services/link/errors"
+	"github.com/pkg/errors"
+
 	"github.com/ic2hrmk/links123/app/services/link/pb/link"
 	"github.com/ic2hrmk/links123/app/services/link/persistence/model"
 )
@@ -14,11 +15,17 @@ import (
 func (rcv *linkDomainService) SaveLinksBulk(
 	ctx context.Context, in *link.SaveLinksBulkRequest,
 ) (*link.SaveLinksBulkResponse, error) {
+	var err error
+
 	//
 	// Validation
 	//
-	if err := in.Validate(); err != nil {
-		return nil, errors.InvalidRequest(err)
+	if in == nil {
+		return nil, rcv.wrapInvalidRequest(errors.New("request is empty"))
+	}
+
+	if err = in.Validate(); err != nil {
+		return nil, rcv.wrapInvalidRequest(err)
 	}
 
 	//
@@ -39,14 +46,29 @@ func (rcv *linkDomainService) SaveLinksBulk(
 			Name:    linkDetails.GetName(),
 			Address: linkDetails.GetAddress(),
 		}
+
+		if linkDetails.GetLinkID() == "" {
+			records[i].LinkID = rcv.generateLinkID()
+		}
 	}
 
-	if err := rcv.linkRepository.SaveBulk(records); err != nil {
-		return nil, errors.Internal(err)
+	if err = rcv.linkRepository.SaveBulk(records); err != nil {
+		return nil, rcv.wrapInternalError(errors.Wrap(err, "unable to persist link"))
 	}
 
 	//
 	// Assemble response
 	//
-	return &link.SaveLinksBulkResponse{}, nil
+	responseEntities := make([]*link.LinkEntity, 0, len(records))
+	for i := range records {
+		responseEntities = append(responseEntities, &link.LinkEntity{
+			LinkID:  records[i].LinkID,
+			Name:    records[i].Name,
+			Address: records[i].Address,
+		})
+	}
+
+	return &link.SaveLinksBulkResponse{
+		Items: responseEntities,
+	}, nil
 }

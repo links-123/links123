@@ -1,10 +1,9 @@
-package errors
+package internal
 
 //
 // Verbose error messages
 //
 const (
-	ErrInconsistentJson = "ErrInconsistentJson"
 	ErrInvalidLimitParameter  = "ErrInvalidLimitParameter"
 	ErrInvalidOffsetParameter = "ErrInvalidOffsetParameter"
 )

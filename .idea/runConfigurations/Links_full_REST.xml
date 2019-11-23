@@ -3,7 +3,7 @@
     <module name="links123" />
     <working_directory value="$PROJECT_DIR$/" />
     <go_parameters value="-i" />
-    <parameters value="--kind=link-rest-gtw" />
+    <parameters value="--kind=link-rest-gtw --env=.env" />
     <kind value="FILE" />
     <filePath value="$PROJECT_DIR$/entry/entry.go" />
     <package value="github.com/ic2hrmk/links123" />
