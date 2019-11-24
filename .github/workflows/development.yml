@@ -9,10 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/setup-go@v1
-        with:
-          go-version: '1.10'
       - uses: actions/checkout@v1
         with:
           ref: development
+      - uses: actions/setup-go@v1
+        with:
+          go-version: '1.10'
+      - run: make install-dependency-manager
+      - run: make run-dependency-manager
       - run: make build
