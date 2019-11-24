@@ -13,16 +13,15 @@ jobs:
         uses: actions/setup-go@v1
         with:
           go-version: '1.10'
-      - name: Checkout code
-        uses: actions/checkout@v1
-        with:
-          ref: development
       - name: Install dependencies manager
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
           make install-dependency-manager
-          which dep
-          pwd
-          make run-dependency-manager
+      - name: Checkout code
+        uses: actions/checkout@v1
+        with:
+          ref: development
       - name: Build
-        run: make build
+        run: |
+          make run-dependency-manager
+          make build
