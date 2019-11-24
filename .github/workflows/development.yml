@@ -20,10 +20,16 @@ jobs:
           ref: development
 
       - name: Pre-Build setup
-        uses: cedrickring/golang-action@1.4.1
+        run: |
+          mv ${GITHUB_WORKSPACE} ${GOPATH}
+          cd ${GOPATH}
+        env:
+          GOPATH: ~/go/src/${GITHUB_REPOSITORY}
 
       - name: Build
         run: |
           make install-dependency-manager
           make run-dependency-manager
           make build
+        env:
+          GOPATH: ~/go/src/${GITHUB_REPOSITORY}
