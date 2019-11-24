@@ -32,10 +32,9 @@ jobs:
       - name: Pre-Build setup
         run: |
           export PATH=$PATH:${GOPATH}/bin
-          run:
-            mkdir -p ~/go/src/github.com/${GITHUB_REPOSITORY}/
-            mv . ~/go/src/github.com/${GITHUB_REPOSITORY}/
-            cd ~/go/src/github.com/${GITHUB_REPOSITORY}/
+          mkdir -p ~/go/src/github.com/${GITHUB_REPOSITORY}/
+          mv . ~/go/src/github.com/${GITHUB_REPOSITORY}/
+          cd ~/go/src/github.com/${GITHUB_REPOSITORY}/
 
       - name: Build
         run: |
