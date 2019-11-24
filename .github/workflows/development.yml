@@ -19,5 +19,6 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           make install-dependency-manager
           which dep
+          pwd
           make run-dependency-manager
           make build
