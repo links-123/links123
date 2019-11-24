@@ -15,15 +15,13 @@ jobs:
           go-version: '1.10'
       - name: Checkout code
         uses: actions/checkout@v1
+        working-directory: ~/go/src/github.com/${GITHUB_REPOSITORY}
         with:
           ref: development
       - name: Build
+        working-directory: ~/go/src/github.com/${GITHUB_REPOSITORY}
         run: |
           export PATH=$PATH:${GOPATH}/bin
-          echo ---
-          pwd
-          echo ---
-          cd ~/go/src/github.com/${GITHUB_REPOSITORY}
           make install-dependency-manager
           make run-dependency-manager
           make build
