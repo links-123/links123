@@ -19,9 +19,8 @@ jobs:
           ref: development
       - name: Build
         run: |
-          GOPATH=$(go env GOPATH)
           export PATH=$PATH:${GOPATH}/bin
-          cd ${GOPATH}/src/github.com/${GITHUB_REPOSITORY}
+          cd ~/go/src/github.com/${GITHUB_REPOSITORY}
           make install-dependency-manager
           make run-dependency-manager
           make build
