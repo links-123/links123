@@ -20,6 +20,7 @@ jobs:
       - name: Build
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
+          cd ${GOPATH}/src/github.com/${GITHUB_REPOSITORY}
           make install-dependency-manager
           make run-dependency-manager
           make build
