@@ -15,9 +15,9 @@ jobs:
       - uses: actions/setup-go@v1
         with:
           go-version: '1.10'
-      - run:
-          export PATH=$PATH:$(go env GOPATH)/bin
       - run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
           make install-dependency-manager
+          which dep
           make run-dependency-manager
           make build
