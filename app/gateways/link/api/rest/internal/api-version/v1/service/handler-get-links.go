@@ -1,4 +1,4 @@
-package internal
+package service
 
 import (
 	"context"
@@ -7,14 +7,11 @@ import (
 
 	"github.com/emicklei/go-restful"
 
-	"github.com/ic2hrmk/links123/app/gateways/link/rest/representation"
+	"github.com/ic2hrmk/links123/app/gateways/link/api/rest/internal/api-version/v1/representation"
 	"github.com/ic2hrmk/links123/shared/gateway/helpers"
 )
 
-func (rcv *linksGateway) getLinks(
-	request *restful.Request,
-	response *restful.Response,
-) {
+func (rcv *linkRESTv1Service) getLinks(request *restful.Request, response *restful.Response) {
 	var limit, offset uint64
 	var err error
 
@@ -22,12 +19,12 @@ func (rcv *linksGateway) getLinks(
 	// Get limit and offset
 	//
 	if limit, err = getLimitParameter(request); err != nil {
-		helpers.ResponseWithBadRequest(response, err, ErrInvalidLimitParameter)
+		helpers.ResponseWithBadRequest(response, err, representation.ErrInvalidLimitParameter)
 		return
 	}
 
 	if offset, err = getOffsetParameter(request); err != nil {
-		helpers.ResponseWithBadRequest(response, err, ErrInvalidOffsetParameter)
+		helpers.ResponseWithBadRequest(response, err, representation.ErrInvalidOffsetParameter)
 		return
 	}
 

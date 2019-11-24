@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/ic2hrmk/links123/app"
-	"github.com/ic2hrmk/links123/app/gateways/link/rest/config"
-	"github.com/ic2hrmk/links123/app/gateways/link/rest/internal"
+	"github.com/ic2hrmk/links123/app/gateways/link/api/rest/config"
+	"github.com/ic2hrmk/links123/app/gateways/link/api/rest/internal"
 )
 
 const ServiceName = "link-rest-gtw"

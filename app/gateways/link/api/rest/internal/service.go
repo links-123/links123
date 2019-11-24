@@ -1,19 +1,23 @@
 package internal
 
 import (
-	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
+	"log"
+	"net/http"
 
-	"github.com/ic2hrmk/links123/app"
+	serviceV1 "github.com/ic2hrmk/links123/app/gateways/link/api/rest/internal/api-version/v1/service"
+	serviceV2 "github.com/ic2hrmk/links123/app/gateways/link/api/rest/internal/api-version/v2/service"
+	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
 
 	"github.com/emicklei/go-restful"
 	"github.com/go-ozzo/ozzo-validation"
+	"github.com/ic2hrmk/links123/app"
 	"github.com/pkg/errors"
 )
 
 //
 // Link Gateway micro-service
 //
-type linksGateway struct {
+type linkGateway struct {
 	webContainer   *restful.Container
 	configurations *linkDomainGatewayConfigurations
 
@@ -27,7 +31,7 @@ func NewLinkDomainService(
 	config *linkDomainGatewayConfigurations,
 	linkServiceClient linkPb.LinkDomainServiceClient,
 ) app.MicroService {
-	service := &linksGateway{
+	service := &linkGateway{
 		configurations:    config,
 		webContainer:      restful.NewContainer(),
 		linkServiceClient: linkServiceClient,
@@ -36,6 +40,22 @@ func NewLinkDomainService(
 	service.init()
 
 	return service
+}
+
+func (rcv *linkGateway) Serve() error {
+	log.Printf("service is available via [http] at address [%s]",
+		rcv.configurations.serveAddress)
+	return http.ListenAndServe(rcv.configurations.serveAddress, rcv.webContainer)
+}
+
+func (rcv *linkGateway) init() {
+	var (
+		linkRESTv1Service = serviceV1.NewLinkRESTService(rcv.linkServiceClient)
+		linkRESTv2Service = serviceV2.NewLinkRESTService(rcv.linkServiceClient)
+	)
+
+	rcv.webContainer.Add(linkRESTv1Service.ProvideWebService())
+	rcv.webContainer.Add(linkRESTv2Service.ProvideWebService())
 }
 
 //
@@ -72,9 +92,6 @@ func (rcv *linkDomainGatewayConfigBuilder) SetLinkServiceAddress(address string)
 	return rcv
 }
 
-//
-// Builds gateway configuration object. It's the only way to initialize it's settings
-//
 func (rcv *linkDomainGatewayConfigBuilder) Build() (*linkDomainGatewayConfigurations, error) {
 	if err := rcv.Validate(); err != nil {
 		return nil, errors.Wrap(err, "configuration is invalid")

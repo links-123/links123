@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/pkg/errors"
 	"log"
 
-	linkRESTGateway "github.com/ic2hrmk/links123/app/gateways/link/rest"
+	linkRESTGateway "github.com/ic2hrmk/links123/app/gateways/link/api/rest"
 	linkService "github.com/ic2hrmk/links123/app/services/link"
+
+	"github.com/pkg/errors"
 
 	"github.com/ic2hrmk/links123/registry"
 	"github.com/ic2hrmk/links123/shared/cmd"
