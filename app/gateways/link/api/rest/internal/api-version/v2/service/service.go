@@ -11,7 +11,7 @@ import (
 	"github.com/ic2hrmk/links123/app/gateways/link/api/rest/internal/api-version/v1/representation"
 )
 
-type linkRESTv2Service struct {
+type linkRESTService struct {
 	webService        *restful.WebService
 	linkServiceClient linkPb.LinkDomainServiceClient
 }
@@ -19,7 +19,7 @@ type linkRESTv2Service struct {
 func NewLinkRESTService(
 	linkServiceClient linkPb.LinkDomainServiceClient,
 ) api_version.APIVersionService {
-	rcv := &linkRESTv2Service{
+	rcv := &linkRESTService{
 		webService:        &restful.WebService{},
 		linkServiceClient: linkServiceClient,
 	}
@@ -29,11 +29,11 @@ func NewLinkRESTService(
 	return rcv
 }
 
-func (rcv *linkRESTv2Service) ProvideWebService() *restful.WebService {
+func (rcv *linkRESTService) ProvideWebService() *restful.WebService {
 	return rcv.webService
 }
 
-func (rcv *linkRESTv2Service) initWebService() {
+func (rcv *linkRESTService) initWebService() {
 	ws := rcv.webService
 
 	ws.Path("/api/v2").

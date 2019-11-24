@@ -11,7 +11,7 @@ import (
 	"github.com/ic2hrmk/links123/shared/gateway/helpers"
 )
 
-func (rcv *linkRESTv1Service) getLinks(request *restful.Request, response *restful.Response) {
+func (rcv *linkRESTService) getLinks(request *restful.Request, response *restful.Response) {
 	var limit, offset uint64
 	var err error
 

@@ -8,7 +8,7 @@ import (
 	"github.com/ic2hrmk/links123/shared/gateway/helpers"
 )
 
-func (rcv *linkRESTv2Service) notImplemented(request *restful.Request, response *restful.Response) {
+func (rcv *linkRESTService) notImplemented(request *restful.Request, response *restful.Response) {
 	helpers.ResponseWithBadRequest(
 		response, errors.New("attempt to access not implemented API"),
 		representation.ErrNotImplemented,
