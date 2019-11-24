@@ -19,6 +19,7 @@ jobs:
           ref: development
       - name: Pre-Build setup
         run: |
+          mkdir -p ~/go/src/github.com/${GITHUB_REPOSITORY}
           mv . ~/go/src/github.com/${GITHUB_REPOSITORY}
           cd ~/go/src/github.com/${GITHUB_REPOSITORY}
           export PATH=$PATH:${GOPATH}/bin
