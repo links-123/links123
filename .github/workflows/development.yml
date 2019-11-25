@@ -22,8 +22,11 @@ jobs:
 
       - name: Pre-Build setup
         run: |
-          export PATH=$PATH:$(go env GOPATH)/bin
+          export PATH=${PATH}:$(go env GOPATH)/bin
           make install-dependency-manager
+          mkdir -p ~/go/src/${GITHUB_REPOSITORY}
+          mv ${GITHUB_WORKSPACE} ~/go/src/${GITHUB_REPOSITORY}
+          ls ~/go/src/${GITHUB_REPOSITORY}/
 
 #      - name: Build
 #        run: |
