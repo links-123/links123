@@ -18,11 +18,11 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: development
+          path:
 
       - name: Pre-Build setup
         run: |
-          export PATH=$PATH:$GOPATH/bin
-          echo $PATH
+          export PATH=$PATH:$(go env GOPATH)/bin
           make install-dependency-manager
 
 #      - name: Build
