@@ -25,7 +25,7 @@ jobs:
           export PATH=${PATH}:$(go env GOPATH)/bin
           make install-dependency-manager
           mkdir -p ~/go/src/${GITHUB_REPOSITORY}
-          mv ${GITHUB_WORKSPACE} ~/go/src/${GITHUB_REPOSITORY}
+          mv ${GITHUB_WORKSPACE}/* ~/go/src/${GITHUB_REPOSITORY}
           cd ~/go/src/${GITHUB_REPOSITORY}/
           pwd
           ls -la
