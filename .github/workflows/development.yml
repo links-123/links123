@@ -21,6 +21,8 @@ jobs:
 
       - name: Pre-Build setup
         run: |
+          export PATH=$PATH:$GOPATH/bin
+          echo $PATH
           make install-dependency-manager
 
 #      - name: Build
