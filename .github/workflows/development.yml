@@ -9,10 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-#      - name: Setup Go
-#        uses: actions/setup-go@v1
-#        with:
-#          go-version: '1.10'
+      - name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: '1.10'
 
       - name: Checkout code
         uses: actions/checkout@v1
@@ -21,7 +21,7 @@ jobs:
 
       - name: Pre-Build setup
         run: |
-          pwd
+          make install-dependency-manager
 
 #      - name: Build
 #        run: |
