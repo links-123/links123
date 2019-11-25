@@ -33,4 +33,4 @@ jobs:
           make run-dependency-manager
           make build
         env:
-          GOPATH=~/go
+          GOPATH: ~/go
