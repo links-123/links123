@@ -27,6 +27,7 @@ jobs:
           mkdir -p ~/go/src/${GITHUB_REPOSITORY}
           mv ${GITHUB_WORKSPACE} ~/go/src/${GITHUB_REPOSITORY}
           cd ~/go/src/${GITHUB_REPOSITORY}/
+          pwd
           ls -la
           echo ${GITHUB_REPOSITORY}
 
