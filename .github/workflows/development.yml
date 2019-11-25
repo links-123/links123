@@ -28,8 +28,8 @@ jobs:
       - name: Build
         run: |
           export PATH=${PATH}:$(go env GOPATH)/bin
+          export GOPATH=$(go env GOPATH)
           cd ~/go/src/${GITHUB_REPOSITORY}/
-          pwd
           make run-dependency-manager
           make build
         env:
