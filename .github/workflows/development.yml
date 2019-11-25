@@ -21,10 +21,9 @@ jobs:
 
       - name: Pre-Build setup
         run: |
-          mv ${GITHUB_WORKSPACE} ${GOPATH}
-          cd ${GOPATH}
-        env:
-          GOPATH: ~/go/src/${GITHUB_REPOSITORY}
+          mkdir -p ~/go/src/github.com/ic2hrmk/links123
+          mv ${GITHUB_WORKSPACE} ~/go/src/github.com/ic2hrmk/links123
+          cd ~/go/src/github.com/ic2hrmk/links123
 
       - name: Build
         run: |
@@ -32,4 +31,4 @@ jobs:
           make run-dependency-manager
           make build
         env:
-          GOPATH: ~/go/src/${GITHUB_REPOSITORY}
+          GOPATH: ~/go
