@@ -32,5 +32,3 @@ jobs:
           cd ~/go/src/${GITHUB_REPOSITORY}/
           make run-dependency-manager
           make build
-        env:
-          GOPATH: ~/go
