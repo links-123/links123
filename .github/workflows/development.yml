@@ -23,10 +23,10 @@ jobs:
         run: |
           mkdir -p ~/go/src/github.com/ic2hrmk/links123
           mv ${GITHUB_WORKSPACE} ~/go/src/github.com/ic2hrmk/links123
-          cd ~/go/src/github.com/ic2hrmk/links123
 
       - name: Build
         run: |
+          cd ~/go/src/github.com/ic2hrmk/links123
           make install-dependency-manager
           make run-dependency-manager
           make build
