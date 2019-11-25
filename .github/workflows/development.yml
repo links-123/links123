@@ -9,10 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-      - name: Setup Go
-        uses: actions/setup-go@v1
-        with:
-          go-version: '1.10'
+#      - name: Setup Go
+#        uses: actions/setup-go@v1
+#        with:
+#          go-version: '1.10'
 
       - name: Checkout code
         uses: actions/checkout@v1
@@ -21,14 +21,13 @@ jobs:
 
       - name: Pre-Build setup
         run: |
-          mkdir -p ~/go/src/github.com/ic2hrmk/links123
-          mv ${GITHUB_WORKSPACE} ~/go/src/github.com/ic2hrmk/links123
+          pwd
 
-      - name: Build
-        run: |
-          cd ~/go/src/github.com/ic2hrmk/links123
-          make install-dependency-manager
-          make run-dependency-manager
-          make build
-        env:
-          GOPATH: ~/go
+#      - name: Build
+#        run: |
+#          cd ~/go/src/github.com/ic2hrmk/links123
+#          make install-dependency-manager
+#          make run-dependency-manager
+#          make build
+#        env:
+#          GOPATH: ~/go
