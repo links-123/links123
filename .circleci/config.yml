@@ -24,8 +24,26 @@ jobs:
           command: |
             make build
 
+
+  deploy:
+    docker:
+      - image: circleci/golang:1.10
+    working_directory: /go/src/github.com/ic2hrmk/links123
+    steps:
+      - run
+        name: Deployment
+        command: |
+          echo "Deployment triggered"
+
 workflows:
   version: 2
   build-workflow:
     jobs:
       - build
+        branches:
+          only:
+            - master
+            - development
+      - deploy
+        tags:
+          only: /^v\d[.]\d[.]\d.*/
