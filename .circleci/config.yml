@@ -26,14 +26,24 @@ jobs:
 
 
   build_images:
-    docker:
-      - image: circleci/golang:1.10
     working_directory: /go/src/github.com/ic2hrmk/links123
+    docker:
+      - image: docker:git
     steps:
+      - setup_remote_docker
+      - checkout
       - run:
-          name: Images build
+          name: Docker Login
+          command: echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin
+      - run:
+          name: Build and Push Image
           command: |
-            echo "Images build is triggered"
+            TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+            make install-dependency-manager
+            make run-dependency-manager
+            docker build -t ic2h/links123:$TAG .
+            docker push ic2h/links123:$TAG
+
   deploy:
     docker:
       - image: circleci/golang:1.10
