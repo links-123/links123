@@ -9,8 +9,6 @@ jobs:
       - run:
           name: Build
           command: |
-            pwd
-            ls -la
             make install-dependency-manager
             make run-dependency-manager
             make build
