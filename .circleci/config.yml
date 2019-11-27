@@ -6,11 +6,22 @@ jobs:
     working_directory: /go/src/github.com/ic2hrmk/links123
     steps:
       - checkout
+      - restore_cache:
+          key: gopkg-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
+          paths:
+            - /go/src/github.com/ic2hrmk/links123/vendor
       - run:
-          name: Build
+          name: Download project dependencies
           command: |
             make install-dependency-manager
             make run-dependency-manager
+      - save_cache:
+          key: gopkg-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
+          paths:
+            - /go/src/github.com/ic2hrmk/links123/vendor
+      - run:
+          name: Build
+          command: |
             make build
 
 workflows:
