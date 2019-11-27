@@ -25,6 +25,15 @@ jobs:
             make build
 
 
+  build_images:
+    docker:
+      - image: circleci/golang:1.10
+    working_directory: /go/src/github.com/ic2hrmk/links123
+    steps:
+      - run:
+          name: Images build
+          command: |
+            echo "Images build is triggered"
   deploy:
     docker:
       - image: circleci/golang:1.10
@@ -45,8 +54,19 @@ workflows:
               only:
                 - master
                 - development
+      - build_images:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+            tags:
+              only: /^v\d[.]\d[.]\d.*/
       - deploy:
           type: approval
+          requires:
+            - build_images
           filters:
             tags:
               only: /^v\d[.]\d[.]\d.*/
