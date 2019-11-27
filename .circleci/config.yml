@@ -39,8 +39,6 @@ jobs:
           name: Build and Push Image
           command: |
             TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
-            make install-dependency-manager
-            make run-dependency-manager
             docker build -t ic2h/links123:$TAG .
             docker push ic2h/links123:$TAG
 
