@@ -30,7 +30,7 @@ jobs:
       - image: circleci/golang:1.10
     working_directory: /go/src/github.com/ic2hrmk/links123
     steps:
-      - run
+      - run:
           name: Deployment
           command: |
             echo "Deployment triggered"
