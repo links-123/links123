@@ -3,8 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.10
-
-    parallelism: 2
     working_directory: /go/src/github.com/ic2hrmk/links123
     steps:
       - checkout
