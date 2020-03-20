@@ -55,10 +55,6 @@ func (rcv *linkDomainService) serveUnsecured() error {
 	return nil
 }
 
-func (rcv *linkDomainService) serveSecured() error {
-	return errors.New("secure serving is not implemented")
-}
-
 //
 // =============== Additional configuration section ================
 //

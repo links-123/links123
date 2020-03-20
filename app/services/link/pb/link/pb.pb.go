@@ -47,249 +47,266 @@ func (x LinkDomainServiceErrorCode) String() string {
 	return proto.EnumName(LinkDomainServiceErrorCode_name, int32(x))
 }
 func (LinkDomainServiceErrorCode) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{0}
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{0}
 }
 
-type FindAllLinksRequest struct {
-	Limit                uint64   `protobuf:"varint,1,opt,name=Limit,proto3" json:"Limit,omitempty"`
-	Offset               uint64   `protobuf:"varint,2,opt,name=Offset,proto3" json:"Offset,omitempty"`
+type CreateLinkRequest struct {
+	Link                 *LinkEntity `protobuf:"bytes,1,opt,name=Link,proto3" json:"Link,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *CreateLinkRequest) Reset()         { *m = CreateLinkRequest{} }
+func (m *CreateLinkRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateLinkRequest) ProtoMessage()    {}
+func (*CreateLinkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{0}
+}
+func (m *CreateLinkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateLinkRequest.Unmarshal(m, b)
+}
+func (m *CreateLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateLinkRequest.Marshal(b, m, deterministic)
+}
+func (dst *CreateLinkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateLinkRequest.Merge(dst, src)
+}
+func (m *CreateLinkRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateLinkRequest.Size(m)
+}
+func (m *CreateLinkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateLinkRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateLinkRequest proto.InternalMessageInfo
+
+func (m *CreateLinkRequest) GetLink() *LinkEntity {
+	if m != nil {
+		return m.Link
+	}
+	return nil
+}
+
+type CreateLinkResponse struct {
+	Link                 *LinkEntity `protobuf:"bytes,1,opt,name=Link,proto3" json:"Link,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *CreateLinkResponse) Reset()         { *m = CreateLinkResponse{} }
+func (m *CreateLinkResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateLinkResponse) ProtoMessage()    {}
+func (*CreateLinkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{1}
+}
+func (m *CreateLinkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateLinkResponse.Unmarshal(m, b)
+}
+func (m *CreateLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateLinkResponse.Marshal(b, m, deterministic)
+}
+func (dst *CreateLinkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateLinkResponse.Merge(dst, src)
+}
+func (m *CreateLinkResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateLinkResponse.Size(m)
+}
+func (m *CreateLinkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateLinkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateLinkResponse proto.InternalMessageInfo
+
+func (m *CreateLinkResponse) GetLink() *LinkEntity {
+	if m != nil {
+		return m.Link
+	}
+	return nil
+}
+
+type DeleteLinkRequest struct {
+	LinkID               string   `protobuf:"bytes,1,opt,name=LinkID,proto3" json:"LinkID,omitempty"`
+	UserID               string   `protobuf:"bytes,2,opt,name=UserID,proto3" json:"UserID,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *FindAllLinksRequest) Reset()         { *m = FindAllLinksRequest{} }
-func (m *FindAllLinksRequest) String() string { return proto.CompactTextString(m) }
-func (*FindAllLinksRequest) ProtoMessage()    {}
-func (*FindAllLinksRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{0}
+func (m *DeleteLinkRequest) Reset()         { *m = DeleteLinkRequest{} }
+func (m *DeleteLinkRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteLinkRequest) ProtoMessage()    {}
+func (*DeleteLinkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{2}
 }
-func (m *FindAllLinksRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_FindAllLinksRequest.Unmarshal(m, b)
+func (m *DeleteLinkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteLinkRequest.Unmarshal(m, b)
 }
-func (m *FindAllLinksRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_FindAllLinksRequest.Marshal(b, m, deterministic)
+func (m *DeleteLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteLinkRequest.Marshal(b, m, deterministic)
 }
-func (dst *FindAllLinksRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FindAllLinksRequest.Merge(dst, src)
+func (dst *DeleteLinkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteLinkRequest.Merge(dst, src)
 }
-func (m *FindAllLinksRequest) XXX_Size() int {
-	return xxx_messageInfo_FindAllLinksRequest.Size(m)
+func (m *DeleteLinkRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteLinkRequest.Size(m)
 }
-func (m *FindAllLinksRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_FindAllLinksRequest.DiscardUnknown(m)
+func (m *DeleteLinkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteLinkRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_FindAllLinksRequest proto.InternalMessageInfo
+var xxx_messageInfo_DeleteLinkRequest proto.InternalMessageInfo
 
-func (m *FindAllLinksRequest) GetLimit() uint64 {
+func (m *DeleteLinkRequest) GetLinkID() string {
+	if m != nil {
+		return m.LinkID
+	}
+	return ""
+}
+
+func (m *DeleteLinkRequest) GetUserID() string {
+	if m != nil {
+		return m.UserID
+	}
+	return ""
+}
+
+type DeleteLinkResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteLinkResponse) Reset()         { *m = DeleteLinkResponse{} }
+func (m *DeleteLinkResponse) String() string { return proto.CompactTextString(m) }
+func (*DeleteLinkResponse) ProtoMessage()    {}
+func (*DeleteLinkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{3}
+}
+func (m *DeleteLinkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteLinkResponse.Unmarshal(m, b)
+}
+func (m *DeleteLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteLinkResponse.Marshal(b, m, deterministic)
+}
+func (dst *DeleteLinkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteLinkResponse.Merge(dst, src)
+}
+func (m *DeleteLinkResponse) XXX_Size() int {
+	return xxx_messageInfo_DeleteLinkResponse.Size(m)
+}
+func (m *DeleteLinkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteLinkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteLinkResponse proto.InternalMessageInfo
+
+type FindLinksRequest struct {
+	UserID               string   `protobuf:"bytes,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	Limit                uint64   `protobuf:"varint,2,opt,name=Limit,proto3" json:"Limit,omitempty"`
+	Offset               uint64   `protobuf:"varint,3,opt,name=Offset,proto3" json:"Offset,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *FindLinksRequest) Reset()         { *m = FindLinksRequest{} }
+func (m *FindLinksRequest) String() string { return proto.CompactTextString(m) }
+func (*FindLinksRequest) ProtoMessage()    {}
+func (*FindLinksRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{4}
+}
+func (m *FindLinksRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FindLinksRequest.Unmarshal(m, b)
+}
+func (m *FindLinksRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FindLinksRequest.Marshal(b, m, deterministic)
+}
+func (dst *FindLinksRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FindLinksRequest.Merge(dst, src)
+}
+func (m *FindLinksRequest) XXX_Size() int {
+	return xxx_messageInfo_FindLinksRequest.Size(m)
+}
+func (m *FindLinksRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_FindLinksRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FindLinksRequest proto.InternalMessageInfo
+
+func (m *FindLinksRequest) GetUserID() string {
+	if m != nil {
+		return m.UserID
+	}
+	return ""
+}
+
+func (m *FindLinksRequest) GetLimit() uint64 {
 	if m != nil {
 		return m.Limit
 	}
 	return 0
 }
 
-func (m *FindAllLinksRequest) GetOffset() uint64 {
+func (m *FindLinksRequest) GetOffset() uint64 {
 	if m != nil {
 		return m.Offset
 	}
 	return 0
 }
 
-type FindAllLinksResponse struct {
+type FindLinksResponse struct {
 	Items                []*LinkEntity `protobuf:"bytes,1,rep,name=Items,proto3" json:"Items,omitempty"`
+	TotalLinksNumber     uint64        `protobuf:"varint,2,opt,name=TotalLinksNumber,proto3" json:"TotalLinksNumber,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
 }
 
-func (m *FindAllLinksResponse) Reset()         { *m = FindAllLinksResponse{} }
-func (m *FindAllLinksResponse) String() string { return proto.CompactTextString(m) }
-func (*FindAllLinksResponse) ProtoMessage()    {}
-func (*FindAllLinksResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{1}
+func (m *FindLinksResponse) Reset()         { *m = FindLinksResponse{} }
+func (m *FindLinksResponse) String() string { return proto.CompactTextString(m) }
+func (*FindLinksResponse) ProtoMessage()    {}
+func (*FindLinksResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{5}
 }
-func (m *FindAllLinksResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_FindAllLinksResponse.Unmarshal(m, b)
+func (m *FindLinksResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FindLinksResponse.Unmarshal(m, b)
 }
-func (m *FindAllLinksResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_FindAllLinksResponse.Marshal(b, m, deterministic)
+func (m *FindLinksResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FindLinksResponse.Marshal(b, m, deterministic)
 }
-func (dst *FindAllLinksResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FindAllLinksResponse.Merge(dst, src)
+func (dst *FindLinksResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FindLinksResponse.Merge(dst, src)
 }
-func (m *FindAllLinksResponse) XXX_Size() int {
-	return xxx_messageInfo_FindAllLinksResponse.Size(m)
+func (m *FindLinksResponse) XXX_Size() int {
+	return xxx_messageInfo_FindLinksResponse.Size(m)
 }
-func (m *FindAllLinksResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_FindAllLinksResponse.DiscardUnknown(m)
+func (m *FindLinksResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_FindLinksResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_FindAllLinksResponse proto.InternalMessageInfo
+var xxx_messageInfo_FindLinksResponse proto.InternalMessageInfo
 
-func (m *FindAllLinksResponse) GetItems() []*LinkEntity {
+func (m *FindLinksResponse) GetItems() []*LinkEntity {
 	if m != nil {
 		return m.Items
 	}
 	return nil
 }
 
-type SaveLinkRequest struct {
-	Link                 *LinkEntity `protobuf:"bytes,1,opt,name=Link,proto3" json:"Link,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
-}
-
-func (m *SaveLinkRequest) Reset()         { *m = SaveLinkRequest{} }
-func (m *SaveLinkRequest) String() string { return proto.CompactTextString(m) }
-func (*SaveLinkRequest) ProtoMessage()    {}
-func (*SaveLinkRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{2}
-}
-func (m *SaveLinkRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SaveLinkRequest.Unmarshal(m, b)
-}
-func (m *SaveLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SaveLinkRequest.Marshal(b, m, deterministic)
-}
-func (dst *SaveLinkRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SaveLinkRequest.Merge(dst, src)
-}
-func (m *SaveLinkRequest) XXX_Size() int {
-	return xxx_messageInfo_SaveLinkRequest.Size(m)
-}
-func (m *SaveLinkRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SaveLinkRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SaveLinkRequest proto.InternalMessageInfo
-
-func (m *SaveLinkRequest) GetLink() *LinkEntity {
+func (m *FindLinksResponse) GetTotalLinksNumber() uint64 {
 	if m != nil {
-		return m.Link
+		return m.TotalLinksNumber
 	}
-	return nil
-}
-
-type SaveLinkResponse struct {
-	Link                 *LinkEntity `protobuf:"bytes,1,opt,name=Link,proto3" json:"Link,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
-}
-
-func (m *SaveLinkResponse) Reset()         { *m = SaveLinkResponse{} }
-func (m *SaveLinkResponse) String() string { return proto.CompactTextString(m) }
-func (*SaveLinkResponse) ProtoMessage()    {}
-func (*SaveLinkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{3}
-}
-func (m *SaveLinkResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SaveLinkResponse.Unmarshal(m, b)
-}
-func (m *SaveLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SaveLinkResponse.Marshal(b, m, deterministic)
-}
-func (dst *SaveLinkResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SaveLinkResponse.Merge(dst, src)
-}
-func (m *SaveLinkResponse) XXX_Size() int {
-	return xxx_messageInfo_SaveLinkResponse.Size(m)
-}
-func (m *SaveLinkResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_SaveLinkResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SaveLinkResponse proto.InternalMessageInfo
-
-func (m *SaveLinkResponse) GetLink() *LinkEntity {
-	if m != nil {
-		return m.Link
-	}
-	return nil
-}
-
-type SaveLinksBulkRequest struct {
-	Items                []*LinkEntity `protobuf:"bytes,1,rep,name=Items,proto3" json:"Items,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
-}
-
-func (m *SaveLinksBulkRequest) Reset()         { *m = SaveLinksBulkRequest{} }
-func (m *SaveLinksBulkRequest) String() string { return proto.CompactTextString(m) }
-func (*SaveLinksBulkRequest) ProtoMessage()    {}
-func (*SaveLinksBulkRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{4}
-}
-func (m *SaveLinksBulkRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SaveLinksBulkRequest.Unmarshal(m, b)
-}
-func (m *SaveLinksBulkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SaveLinksBulkRequest.Marshal(b, m, deterministic)
-}
-func (dst *SaveLinksBulkRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SaveLinksBulkRequest.Merge(dst, src)
-}
-func (m *SaveLinksBulkRequest) XXX_Size() int {
-	return xxx_messageInfo_SaveLinksBulkRequest.Size(m)
-}
-func (m *SaveLinksBulkRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SaveLinksBulkRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SaveLinksBulkRequest proto.InternalMessageInfo
-
-func (m *SaveLinksBulkRequest) GetItems() []*LinkEntity {
-	if m != nil {
-		return m.Items
-	}
-	return nil
-}
-
-type SaveLinksBulkResponse struct {
-	Items                []*LinkEntity `protobuf:"bytes,1,rep,name=Items,proto3" json:"Items,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
-}
-
-func (m *SaveLinksBulkResponse) Reset()         { *m = SaveLinksBulkResponse{} }
-func (m *SaveLinksBulkResponse) String() string { return proto.CompactTextString(m) }
-func (*SaveLinksBulkResponse) ProtoMessage()    {}
-func (*SaveLinksBulkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{5}
-}
-func (m *SaveLinksBulkResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SaveLinksBulkResponse.Unmarshal(m, b)
-}
-func (m *SaveLinksBulkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SaveLinksBulkResponse.Marshal(b, m, deterministic)
-}
-func (dst *SaveLinksBulkResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SaveLinksBulkResponse.Merge(dst, src)
-}
-func (m *SaveLinksBulkResponse) XXX_Size() int {
-	return xxx_messageInfo_SaveLinksBulkResponse.Size(m)
-}
-func (m *SaveLinksBulkResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_SaveLinksBulkResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SaveLinksBulkResponse proto.InternalMessageInfo
-
-func (m *SaveLinksBulkResponse) GetItems() []*LinkEntity {
-	if m != nil {
-		return m.Items
-	}
-	return nil
+	return 0
 }
 
 type LinkEntity struct {
 	LinkID               string   `protobuf:"bytes,1,opt,name=LinkID,proto3" json:"LinkID,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
-	Address              string   `protobuf:"bytes,3,opt,name=Address,proto3" json:"Address,omitempty"`
+	UserID               string   `protobuf:"bytes,2,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	Name                 string   `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name,omitempty"`
+	Address              string   `protobuf:"bytes,4,opt,name=Address,proto3" json:"Address,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -299,7 +316,7 @@ func (m *LinkEntity) Reset()         { *m = LinkEntity{} }
 func (m *LinkEntity) String() string { return proto.CompactTextString(m) }
 func (*LinkEntity) ProtoMessage()    {}
 func (*LinkEntity) Descriptor() ([]byte, []int) {
-	return fileDescriptor_pb_e7f33c1623e8bab5, []int{6}
+	return fileDescriptor_pb_c3fc0d619c88db68, []int{6}
 }
 func (m *LinkEntity) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LinkEntity.Unmarshal(m, b)
@@ -326,6 +343,13 @@ func (m *LinkEntity) GetLinkID() string {
 	return ""
 }
 
+func (m *LinkEntity) GetUserID() string {
+	if m != nil {
+		return m.UserID
+	}
+	return ""
+}
+
 func (m *LinkEntity) GetName() string {
 	if m != nil {
 		return m.Name
@@ -341,12 +365,12 @@ func (m *LinkEntity) GetAddress() string {
 }
 
 func init() {
-	proto.RegisterType((*FindAllLinksRequest)(nil), "link.FindAllLinksRequest")
-	proto.RegisterType((*FindAllLinksResponse)(nil), "link.FindAllLinksResponse")
-	proto.RegisterType((*SaveLinkRequest)(nil), "link.SaveLinkRequest")
-	proto.RegisterType((*SaveLinkResponse)(nil), "link.SaveLinkResponse")
-	proto.RegisterType((*SaveLinksBulkRequest)(nil), "link.SaveLinksBulkRequest")
-	proto.RegisterType((*SaveLinksBulkResponse)(nil), "link.SaveLinksBulkResponse")
+	proto.RegisterType((*CreateLinkRequest)(nil), "link.CreateLinkRequest")
+	proto.RegisterType((*CreateLinkResponse)(nil), "link.CreateLinkResponse")
+	proto.RegisterType((*DeleteLinkRequest)(nil), "link.DeleteLinkRequest")
+	proto.RegisterType((*DeleteLinkResponse)(nil), "link.DeleteLinkResponse")
+	proto.RegisterType((*FindLinksRequest)(nil), "link.FindLinksRequest")
+	proto.RegisterType((*FindLinksResponse)(nil), "link.FindLinksResponse")
 	proto.RegisterType((*LinkEntity)(nil), "link.LinkEntity")
 	proto.RegisterEnum("link.LinkDomainServiceErrorCode", LinkDomainServiceErrorCode_name, LinkDomainServiceErrorCode_value)
 }
@@ -363,9 +387,9 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LinkDomainServiceClient interface {
-	FindAllLinks(ctx context.Context, in *FindAllLinksRequest, opts ...grpc.CallOption) (*FindAllLinksResponse, error)
-	SaveLink(ctx context.Context, in *SaveLinkRequest, opts ...grpc.CallOption) (*SaveLinkResponse, error)
-	SaveLinksBulk(ctx context.Context, in *SaveLinksBulkRequest, opts ...grpc.CallOption) (*SaveLinksBulkResponse, error)
+	CreateLink(ctx context.Context, in *CreateLinkRequest, opts ...grpc.CallOption) (*CreateLinkResponse, error)
+	DeleteLink(ctx context.Context, in *DeleteLinkRequest, opts ...grpc.CallOption) (*DeleteLinkResponse, error)
+	FindLinks(ctx context.Context, in *FindLinksRequest, opts ...grpc.CallOption) (*FindLinksResponse, error)
 }
 
 type linkDomainServiceClient struct {
@@ -376,27 +400,27 @@ func NewLinkDomainServiceClient(cc *grpc.ClientConn) LinkDomainServiceClient {
 	return &linkDomainServiceClient{cc}
 }
 
-func (c *linkDomainServiceClient) FindAllLinks(ctx context.Context, in *FindAllLinksRequest, opts ...grpc.CallOption) (*FindAllLinksResponse, error) {
-	out := new(FindAllLinksResponse)
-	err := c.cc.Invoke(ctx, "/link.LinkDomainService/FindAllLinks", in, out, opts...)
+func (c *linkDomainServiceClient) CreateLink(ctx context.Context, in *CreateLinkRequest, opts ...grpc.CallOption) (*CreateLinkResponse, error) {
+	out := new(CreateLinkResponse)
+	err := c.cc.Invoke(ctx, "/link.LinkDomainService/CreateLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *linkDomainServiceClient) SaveLink(ctx context.Context, in *SaveLinkRequest, opts ...grpc.CallOption) (*SaveLinkResponse, error) {
-	out := new(SaveLinkResponse)
-	err := c.cc.Invoke(ctx, "/link.LinkDomainService/SaveLink", in, out, opts...)
+func (c *linkDomainServiceClient) DeleteLink(ctx context.Context, in *DeleteLinkRequest, opts ...grpc.CallOption) (*DeleteLinkResponse, error) {
+	out := new(DeleteLinkResponse)
+	err := c.cc.Invoke(ctx, "/link.LinkDomainService/DeleteLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *linkDomainServiceClient) SaveLinksBulk(ctx context.Context, in *SaveLinksBulkRequest, opts ...grpc.CallOption) (*SaveLinksBulkResponse, error) {
-	out := new(SaveLinksBulkResponse)
-	err := c.cc.Invoke(ctx, "/link.LinkDomainService/SaveLinksBulk", in, out, opts...)
+func (c *linkDomainServiceClient) FindLinks(ctx context.Context, in *FindLinksRequest, opts ...grpc.CallOption) (*FindLinksResponse, error) {
+	out := new(FindLinksResponse)
+	err := c.cc.Invoke(ctx, "/link.LinkDomainService/FindLinks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -405,65 +429,65 @@ func (c *linkDomainServiceClient) SaveLinksBulk(ctx context.Context, in *SaveLin
 
 // LinkDomainServiceServer is the server API for LinkDomainService service.
 type LinkDomainServiceServer interface {
-	FindAllLinks(context.Context, *FindAllLinksRequest) (*FindAllLinksResponse, error)
-	SaveLink(context.Context, *SaveLinkRequest) (*SaveLinkResponse, error)
-	SaveLinksBulk(context.Context, *SaveLinksBulkRequest) (*SaveLinksBulkResponse, error)
+	CreateLink(context.Context, *CreateLinkRequest) (*CreateLinkResponse, error)
+	DeleteLink(context.Context, *DeleteLinkRequest) (*DeleteLinkResponse, error)
+	FindLinks(context.Context, *FindLinksRequest) (*FindLinksResponse, error)
 }
 
 func RegisterLinkDomainServiceServer(s *grpc.Server, srv LinkDomainServiceServer) {
 	s.RegisterService(&_LinkDomainService_serviceDesc, srv)
 }
 
-func _LinkDomainService_FindAllLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindAllLinksRequest)
+func _LinkDomainService_CreateLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LinkDomainServiceServer).FindAllLinks(ctx, in)
+		return srv.(LinkDomainServiceServer).CreateLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/link.LinkDomainService/FindAllLinks",
+		FullMethod: "/link.LinkDomainService/CreateLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkDomainServiceServer).FindAllLinks(ctx, req.(*FindAllLinksRequest))
+		return srv.(LinkDomainServiceServer).CreateLink(ctx, req.(*CreateLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkDomainService_SaveLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SaveLinkRequest)
+func _LinkDomainService_DeleteLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LinkDomainServiceServer).SaveLink(ctx, in)
+		return srv.(LinkDomainServiceServer).DeleteLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/link.LinkDomainService/SaveLink",
+		FullMethod: "/link.LinkDomainService/DeleteLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkDomainServiceServer).SaveLink(ctx, req.(*SaveLinkRequest))
+		return srv.(LinkDomainServiceServer).DeleteLink(ctx, req.(*DeleteLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkDomainService_SaveLinksBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SaveLinksBulkRequest)
+func _LinkDomainService_FindLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindLinksRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LinkDomainServiceServer).SaveLinksBulk(ctx, in)
+		return srv.(LinkDomainServiceServer).FindLinks(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/link.LinkDomainService/SaveLinksBulk",
+		FullMethod: "/link.LinkDomainService/FindLinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkDomainServiceServer).SaveLinksBulk(ctx, req.(*SaveLinksBulkRequest))
+		return srv.(LinkDomainServiceServer).FindLinks(ctx, req.(*FindLinksRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -473,51 +497,53 @@ var _LinkDomainService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*LinkDomainServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "FindAllLinks",
-			Handler:    _LinkDomainService_FindAllLinks_Handler,
+			MethodName: "CreateLink",
+			Handler:    _LinkDomainService_CreateLink_Handler,
 		},
 		{
-			MethodName: "SaveLink",
-			Handler:    _LinkDomainService_SaveLink_Handler,
+			MethodName: "DeleteLink",
+			Handler:    _LinkDomainService_DeleteLink_Handler,
 		},
 		{
-			MethodName: "SaveLinksBulk",
-			Handler:    _LinkDomainService_SaveLinksBulk_Handler,
+			MethodName: "FindLinks",
+			Handler:    _LinkDomainService_FindLinks_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "pb/link/pb.proto",
 }
 
-func init() { proto.RegisterFile("pb/link/pb.proto", fileDescriptor_pb_e7f33c1623e8bab5) }
+func init() { proto.RegisterFile("pb/link/pb.proto", fileDescriptor_pb_c3fc0d619c88db68) }
 
-var fileDescriptor_pb_e7f33c1623e8bab5 = []byte{
-	// 431 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x53, 0xdd, 0x8e, 0xd2, 0x40,
-	0x14, 0xde, 0x2e, 0xa5, 0xbb, 0x7b, 0xd6, 0xd5, 0x3a, 0x0b, 0x58, 0x6b, 0x8c, 0x58, 0x8d, 0x12,
-	0x2f, 0xc0, 0xe0, 0x8d, 0x89, 0x09, 0x86, 0x02, 0x9a, 0x1a, 0xd4, 0xa4, 0xc4, 0x1b, 0xef, 0x8a,
-	0x1d, 0x92, 0x09, 0xed, 0xb4, 0xce, 0x0c, 0x18, 0xdf, 0xc0, 0xf8, 0x14, 0x3e, 0x87, 0x57, 0xbe,
-	0x8c, 0x17, 0xbe, 0x85, 0x99, 0x69, 0x0b, 0xb4, 0x36, 0x46, 0xef, 0x7a, 0xce, 0xf7, 0x9d, 0xaf,
-	0xdf, 0xf9, 0x19, 0x30, 0xd3, 0xe5, 0x20, 0x22, 0x74, 0x3d, 0x48, 0x97, 0xfd, 0x94, 0x25, 0x22,
-	0x41, 0xba, 0x0c, 0xed, 0x1b, 0xdb, 0x20, 0x22, 0x61, 0x20, 0xf0, 0xa0, 0xf8, 0xc8, 0x60, 0x67,
-	0x02, 0x97, 0x2f, 0x08, 0x0d, 0xc7, 0x51, 0x34, 0x27, 0x74, 0xcd, 0x7d, 0xfc, 0x71, 0x83, 0xb9,
-	0x40, 0x2d, 0x68, 0xce, 0x49, 0x4c, 0x84, 0xa5, 0x75, 0xb5, 0x9e, 0xee, 0x67, 0x01, 0xea, 0x80,
-	0xf1, 0x76, 0xb5, 0xe2, 0x58, 0x58, 0xc7, 0x2a, 0x9d, 0x47, 0xce, 0x08, 0x5a, 0x65, 0x11, 0x9e,
-	0x26, 0x94, 0x63, 0xf4, 0x00, 0x9a, 0x9e, 0xc0, 0x31, 0xb7, 0xb4, 0x6e, 0xa3, 0x77, 0x3e, 0x34,
-	0xfb, 0xd2, 0x4b, 0x5f, 0x72, 0x66, 0x54, 0x10, 0xf1, 0xd9, 0xcf, 0x60, 0x67, 0x02, 0xd7, 0x16,
-	0xc1, 0x16, 0x4b, 0xa0, 0x30, 0xf0, 0x18, 0x74, 0x19, 0xaa, 0xff, 0xd7, 0x54, 0xba, 0xf0, 0xfd,
-	0xd7, 0x8f, 0x46, 0xf3, 0xab, 0x76, 0x6c, 0x6a, 0xbe, 0x62, 0x3a, 0x4f, 0xc1, 0xdc, 0x8b, 0xe4,
-	0x06, 0xee, 0xff, 0x5d, 0x25, 0xaf, 0x1c, 0x41, 0xab, 0xa8, 0xe4, 0xee, 0x26, 0xda, 0x79, 0xf8,
-	0x57, 0xfb, 0xcf, 0xa1, 0x5d, 0xa9, 0xff, 0xcf, 0xfe, 0x39, 0xc0, 0x3e, 0x89, 0xee, 0x82, 0x21,
-	0x23, 0x6f, 0xaa, 0x6c, 0x9f, 0xb9, 0x67, 0xb2, 0x55, 0x9d, 0xc9, 0x4e, 0x73, 0x00, 0xdd, 0x06,
-	0xfd, 0x4d, 0x10, 0x63, 0xb5, 0x86, 0x12, 0x41, 0xa5, 0xd1, 0x3d, 0x38, 0x19, 0x87, 0x21, 0xc3,
-	0x9c, 0x5b, 0x8d, 0x2a, 0xa3, 0x40, 0x1e, 0xbd, 0x06, 0x5b, 0xaa, 0x4d, 0x93, 0x38, 0x20, 0x74,
-	0x81, 0xd9, 0x96, 0x7c, 0xc0, 0x33, 0xc6, 0x12, 0x36, 0x49, 0x42, 0x8c, 0xce, 0xe1, 0xe4, 0x1d,
-	0x5d, 0xd3, 0xe4, 0x13, 0x35, 0x8f, 0xd0, 0x05, 0x9c, 0x7a, 0x54, 0x60, 0x46, 0x83, 0xc8, 0xfc,
-	0xf2, 0x10, 0x5d, 0xc2, 0x55, 0x8f, 0xaa, 0x3b, 0xca, 0x27, 0x65, 0x7e, 0xbb, 0x33, 0xfc, 0xa9,
-	0xc1, 0xf5, 0x3f, 0xf4, 0xd0, 0x4b, 0xb8, 0x72, 0x78, 0x19, 0xe8, 0x66, 0x36, 0x82, 0x9a, 0x93,
-	0xb3, 0xed, 0x3a, 0x28, 0x1b, 0xa4, 0x73, 0x84, 0x9e, 0xc1, 0x69, 0x31, 0x63, 0xd4, 0xce, 0x98,
-	0x95, 0x93, 0xb1, 0x3b, 0xd5, 0xf4, 0xae, 0xf8, 0x15, 0x5c, 0x94, 0x16, 0x84, 0xec, 0x32, 0xf5,
-	0x70, 0xeb, 0xf6, 0xad, 0x5a, 0xac, 0xd0, 0x72, 0x8d, 0xf7, 0xea, 0x45, 0x2d, 0x0d, 0xf5, 0x7e,
-	0x9e, 0xfc, 0x0e, 0x00, 0x00, 0xff, 0xff, 0x90, 0xa7, 0x21, 0xd9, 0x72, 0x03, 0x00, 0x00,
+var fileDescriptor_pb_c3fc0d619c88db68 = []byte{
+	// 463 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x53, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0x8e, 0x1b, 0x27, 0x25, 0x53, 0x81, 0x9c, 0xa1, 0x4a, 0xac, 0x48, 0x88, 0x62, 0x10, 0xa0,
+	0x1e, 0x12, 0x54, 0x6e, 0x1c, 0x90, 0x9a, 0x26, 0x48, 0x96, 0x4a, 0x91, 0x02, 0x3d, 0xc0, 0xcd,
+	0xa9, 0xa7, 0x68, 0x15, 0x7b, 0x37, 0xec, 0x6e, 0x8b, 0xb8, 0x71, 0x44, 0x3c, 0x05, 0xcf, 0xc1,
+	0x89, 0xd7, 0xe0, 0x11, 0x78, 0x0b, 0xb4, 0xeb, 0x75, 0xe2, 0xd4, 0x81, 0x9b, 0xe7, 0xef, 0xfb,
+	0xc6, 0xdf, 0x7c, 0x0b, 0xc1, 0x72, 0x3e, 0xca, 0x18, 0x5f, 0x8c, 0x96, 0xf3, 0xe1, 0x52, 0x0a,
+	0x2d, 0xd0, 0x37, 0xe1, 0xa0, 0x7f, 0x9d, 0x64, 0x2c, 0x4d, 0x34, 0x8d, 0xca, 0x8f, 0xa2, 0x1c,
+	0x4d, 0xa1, 0x7b, 0x22, 0x29, 0xd1, 0x74, 0xca, 0xf8, 0x62, 0x46, 0x9f, 0xae, 0x48, 0x69, 0x7c,
+	0x06, 0xbe, 0x09, 0x43, 0xef, 0xc0, 0x7b, 0xba, 0x77, 0x14, 0x0c, 0x0d, 0xc4, 0xd0, 0x64, 0xa6,
+	0x5c, 0x33, 0xfd, 0x65, 0x0c, 0x3f, 0xff, 0xfc, 0x6a, 0xb6, 0xbe, 0x7b, 0x3b, 0x81, 0x37, 0xb3,
+	0x9d, 0xd1, 0x0b, 0xc0, 0x2a, 0x8c, 0x5a, 0x0a, 0xae, 0x08, 0x1f, 0xfd, 0x1f, 0xc7, 0xcd, 0xbe,
+	0x87, 0xee, 0x84, 0x32, 0xda, 0x5c, 0xe1, 0x01, 0xb4, 0x4d, 0x18, 0x4f, 0xec, 0x70, 0x67, 0xdc,
+	0x31, 0x94, 0xbe, 0x34, 0x8c, 0xae, 0x60, 0x5a, 0xce, 0x15, 0xc9, 0x78, 0x12, 0xee, 0xd4, 0x5a,
+	0x8a, 0x42, 0xb4, 0x0f, 0x58, 0x85, 0x2e, 0xd6, 0x8a, 0x2e, 0x20, 0x78, 0xc5, 0x78, 0x6a, 0x72,
+	0xaa, 0xc2, 0xe7, 0xc0, 0xbc, 0x7f, 0x80, 0xe1, 0x3e, 0xb4, 0x4e, 0x59, 0xce, 0xb4, 0xa5, 0xf3,
+	0x67, 0x45, 0x80, 0x3d, 0x68, 0xbf, 0xb9, 0xbc, 0x54, 0xa4, 0xc3, 0xa6, 0x4d, 0xbb, 0x28, 0xfa,
+	0x08, 0xdd, 0x0a, 0x89, 0x13, 0xe4, 0x31, 0xb4, 0x62, 0x4d, 0xb9, 0x0a, 0xbd, 0x83, 0xe6, 0x56,
+	0x45, 0x8a, 0x32, 0x1e, 0x42, 0xf0, 0x4e, 0xe8, 0x24, 0xb3, 0xd3, 0x67, 0x57, 0xf9, 0x9c, 0xa4,
+	0x63, 0xad, 0xe5, 0xa3, 0xaf, 0x1e, 0xc0, 0x1a, 0xc1, 0xec, 0x53, 0x15, 0x6e, 0xa5, 0x56, 0x6f,
+	0x53, 0xad, 0xd5, 0x5f, 0xdd, 0x03, 0xff, 0x2c, 0xc9, 0xc9, 0x6e, 0xbf, 0xf1, 0xdb, 0x36, 0x8d,
+	0x0f, 0x61, 0xf7, 0x38, 0x4d, 0x25, 0x29, 0x15, 0xfa, 0x37, 0x3b, 0xca, 0xca, 0xe1, 0x6b, 0x18,
+	0x18, 0x96, 0x89, 0xc8, 0x13, 0xc6, 0xdf, 0x92, 0xbc, 0x66, 0x17, 0x34, 0x95, 0x52, 0xc8, 0x13,
+	0x91, 0x12, 0xee, 0xc1, 0xee, 0x39, 0x5f, 0x70, 0xf1, 0x99, 0x07, 0x0d, 0xbc, 0x0d, 0xb7, 0x62,
+	0xae, 0x49, 0xf2, 0x24, 0x0b, 0xbe, 0x3d, 0xc1, 0xbb, 0x70, 0x27, 0xe6, 0xd6, 0x92, 0xee, 0x10,
+	0xc1, 0x8f, 0xfb, 0x47, 0xbf, 0x3d, 0xe8, 0xd6, 0xf0, 0xf0, 0x18, 0x60, 0x6d, 0x31, 0xec, 0x17,
+	0xd2, 0xd5, 0xbc, 0x3b, 0x08, 0xeb, 0x05, 0x77, 0xf6, 0x86, 0x81, 0x58, 0xdb, 0xa1, 0x84, 0xa8,
+	0x79, 0xaf, 0x84, 0xd8, 0xe2, 0x9c, 0x06, 0xbe, 0x84, 0xce, 0xea, 0xac, 0xd8, 0x2b, 0x1a, 0x6f,
+	0x9a, 0x69, 0xd0, 0xaf, 0xe5, 0xcb, 0xf9, 0x71, 0xfb, 0x83, 0x7d, 0x90, 0xf3, 0xb6, 0x7d, 0x7e,
+	0xcf, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0x09, 0xa6, 0x74, 0x18, 0xb1, 0x03, 0x00, 0x00,
 }

@@ -3,10 +3,9 @@ package mongo
 import (
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
-	"github.com/google/uuid"
-
 	"github.com/ic2hrmk/links123/app/services/link/persistence/model"
 	"github.com/ic2hrmk/links123/app/services/link/persistence/repository"
+	"github.com/pkg/errors"
 )
 
 const linksCollection = "links"
@@ -24,45 +23,56 @@ func (r *LinkRepository) collection() *mgo.Collection {
 }
 
 func (r *LinkRepository) Save(record *model.Link) (*model.Link, error) {
-	if record.LinkID == "" {
-		record.LinkID = uuid.New().String()
-	}
-
 	_, err := r.collection().Upsert(bson.M{"_id": record.LinkID}, record)
 	if err != nil {
-		return nil, err
+		return nil, errors.WithMessage(repository.ErrStorageFailure, err.Error())
 	}
 
 	return record, nil
 }
 
-func (r *LinkRepository) SaveBulk(records []*model.Link) error {
-	bulkOperator := r.collection().Bulk()
+func (r *LinkRepository) Delete(linkID, userID string) error {
+	err := r.collection().Remove(
+		bson.M{
+			"_id":    linkID,
+			"userID": userID,
+		})
 
-	for i := range records {
-		if records[i].LinkID == "" {
-			records[i].LinkID = uuid.New().String()
-		}
-		bulkOperator.Upsert(bson.M{"_id": records[i].LinkID}, records[i])
-	}
-
-	if _, err := bulkOperator.Run(); err != nil {
-		return err
+	if err != nil && err != mgo.ErrNotFound {
+		return errors.WithMessage(repository.ErrStorageFailure, err.Error())
 	}
 
 	return nil
 }
 
-func (r *LinkRepository) FindAll(limit, offset uint64) ([]*model.Link, error) {
-	return r.prepareResultList(
-		r.collection().Find(bson.M{}).Limit(int(limit)).Skip(int(offset)))
+func (r *LinkRepository) FindByUserID(userID string, limit, offset uint64) ([]*model.Link, uint64, error) {
+	userLinksQuery := r.collection().
+		Find(bson.M{
+			"userID": userID,
+		})
+
+	totalLinks, err := r.countResults(userLinksQuery)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	links, err := r.prepareResultList(
+		userLinksQuery.
+			Limit(int(limit)).
+			Skip(int(offset)),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	return links, totalLinks, nil
 }
 
 //nolint:megacheck
 func (r *LinkRepository) prepareOneResult(query *mgo.Query) (*model.Link, error) {
 	count, err := query.Count()
 	if err != nil {
-		return nil, err
+		return nil, errors.WithMessage(repository.ErrStorageFailure, err.Error())
 	}
 
 	record := &model.Link{}
@@ -80,21 +90,20 @@ func (r *LinkRepository) prepareOneResult(query *mgo.Query) (*model.Link, error)
 }
 
 func (r *LinkRepository) prepareResultList(query *mgo.Query) ([]*model.Link, error) {
-	count, err := query.Count()
-	if err != nil {
-		return nil, err
-	}
-
 	var records []*model.Link
 
-	if count == 0 {
-		return records, nil
-	}
-
-	err = query.All(&records)
-	if err != nil {
-		return nil, err
+	if err := query.All(&records); err != nil {
+		return nil, errors.WithMessage(repository.ErrStorageFailure, err.Error())
 	}
 
 	return records, nil
+}
+
+func (r *LinkRepository) countResults(query *mgo.Query) (uint64, error) {
+	results, err := query.Count()
+	if err != nil {
+		return 0, errors.WithMessage(repository.ErrStorageFailure, err.Error())
+	}
+
+	return uint64(results), nil
 }

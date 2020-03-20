@@ -36,13 +36,307 @@ var (
 // define the regex for a UUID once up-front
 var _pb_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on FindAllLinksRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *FindAllLinksRequest) Validate() error {
+// Validate checks the field values on CreateLinkRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *CreateLinkRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
+
+	if v, ok := interface{}(m.GetLink()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateLinkRequestValidationError{
+				field:  "Link",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateLinkRequestValidationError is the validation error returned by
+// CreateLinkRequest.Validate if the designated constraints aren't met.
+type CreateLinkRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateLinkRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateLinkRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateLinkRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateLinkRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateLinkRequestValidationError) ErrorName() string {
+	return "CreateLinkRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateLinkRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateLinkRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateLinkRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateLinkRequestValidationError{}
+
+// Validate checks the field values on CreateLinkResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateLinkResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetLink()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateLinkResponseValidationError{
+				field:  "Link",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CreateLinkResponseValidationError is the validation error returned by
+// CreateLinkResponse.Validate if the designated constraints aren't met.
+type CreateLinkResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateLinkResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateLinkResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateLinkResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateLinkResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateLinkResponseValidationError) ErrorName() string {
+	return "CreateLinkResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateLinkResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateLinkResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateLinkResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateLinkResponseValidationError{}
+
+// Validate checks the field values on DeleteLinkRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *DeleteLinkRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for LinkID
+
+	// no validation rules for UserID
+
+	return nil
+}
+
+// DeleteLinkRequestValidationError is the validation error returned by
+// DeleteLinkRequest.Validate if the designated constraints aren't met.
+type DeleteLinkRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteLinkRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteLinkRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteLinkRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteLinkRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteLinkRequestValidationError) ErrorName() string {
+	return "DeleteLinkRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteLinkRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteLinkRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteLinkRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteLinkRequestValidationError{}
+
+// Validate checks the field values on DeleteLinkResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteLinkResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// DeleteLinkResponseValidationError is the validation error returned by
+// DeleteLinkResponse.Validate if the designated constraints aren't met.
+type DeleteLinkResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteLinkResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteLinkResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteLinkResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteLinkResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteLinkResponseValidationError) ErrorName() string {
+	return "DeleteLinkResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteLinkResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteLinkResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteLinkResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteLinkResponseValidationError{}
+
+// Validate checks the field values on FindLinksRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *FindLinksRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for UserID
 
 	// no validation rules for Limit
 
@@ -51,9 +345,9 @@ func (m *FindAllLinksRequest) Validate() error {
 	return nil
 }
 
-// FindAllLinksRequestValidationError is the validation error returned by
-// FindAllLinksRequest.Validate if the designated constraints aren't met.
-type FindAllLinksRequestValidationError struct {
+// FindLinksRequestValidationError is the validation error returned by
+// FindLinksRequest.Validate if the designated constraints aren't met.
+type FindLinksRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -61,24 +355,22 @@ type FindAllLinksRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e FindAllLinksRequestValidationError) Field() string { return e.field }
+func (e FindLinksRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FindAllLinksRequestValidationError) Reason() string { return e.reason }
+func (e FindLinksRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FindAllLinksRequestValidationError) Cause() error { return e.cause }
+func (e FindLinksRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FindAllLinksRequestValidationError) Key() bool { return e.key }
+func (e FindLinksRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FindAllLinksRequestValidationError) ErrorName() string {
-	return "FindAllLinksRequestValidationError"
-}
+func (e FindLinksRequestValidationError) ErrorName() string { return "FindLinksRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e FindAllLinksRequestValidationError) Error() string {
+func (e FindLinksRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -90,14 +382,14 @@ func (e FindAllLinksRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFindAllLinksRequest.%s: %s%s",
+		"invalid %sFindLinksRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FindAllLinksRequestValidationError{}
+var _ error = FindLinksRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -105,244 +397,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FindAllLinksRequestValidationError{}
+} = FindLinksRequestValidationError{}
 
-// Validate checks the field values on FindAllLinksResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *FindAllLinksResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	for idx, item := range m.GetItems() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return FindAllLinksResponseValidationError{
-					field:  fmt.Sprintf("Items[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// FindAllLinksResponseValidationError is the validation error returned by
-// FindAllLinksResponse.Validate if the designated constraints aren't met.
-type FindAllLinksResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e FindAllLinksResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e FindAllLinksResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e FindAllLinksResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e FindAllLinksResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e FindAllLinksResponseValidationError) ErrorName() string {
-	return "FindAllLinksResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e FindAllLinksResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sFindAllLinksResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = FindAllLinksResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = FindAllLinksResponseValidationError{}
-
-// Validate checks the field values on SaveLinkRequest with the rules defined
+// Validate checks the field values on FindLinksResponse with the rules defined
 // in the proto definition for this message. If any rules are violated, an
 // error is returned.
-func (m *SaveLinkRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetLink()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SaveLinkRequestValidationError{
-				field:  "Link",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// SaveLinkRequestValidationError is the validation error returned by
-// SaveLinkRequest.Validate if the designated constraints aren't met.
-type SaveLinkRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SaveLinkRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SaveLinkRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SaveLinkRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SaveLinkRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SaveLinkRequestValidationError) ErrorName() string { return "SaveLinkRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e SaveLinkRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSaveLinkRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SaveLinkRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SaveLinkRequestValidationError{}
-
-// Validate checks the field values on SaveLinkResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *SaveLinkResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetLink()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SaveLinkResponseValidationError{
-				field:  "Link",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// SaveLinkResponseValidationError is the validation error returned by
-// SaveLinkResponse.Validate if the designated constraints aren't met.
-type SaveLinkResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SaveLinkResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SaveLinkResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SaveLinkResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SaveLinkResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SaveLinkResponseValidationError) ErrorName() string { return "SaveLinkResponseValidationError" }
-
-// Error satisfies the builtin error interface
-func (e SaveLinkResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSaveLinkResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SaveLinkResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SaveLinkResponseValidationError{}
-
-// Validate checks the field values on SaveLinksBulkRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *SaveLinksBulkRequest) Validate() error {
+func (m *FindLinksResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -352,7 +412,7 @@ func (m *SaveLinksBulkRequest) Validate() error {
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return SaveLinksBulkRequestValidationError{
+				return FindLinksResponseValidationError{
 					field:  fmt.Sprintf("Items[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -362,12 +422,14 @@ func (m *SaveLinksBulkRequest) Validate() error {
 
 	}
 
+	// no validation rules for TotalLinksNumber
+
 	return nil
 }
 
-// SaveLinksBulkRequestValidationError is the validation error returned by
-// SaveLinksBulkRequest.Validate if the designated constraints aren't met.
-type SaveLinksBulkRequestValidationError struct {
+// FindLinksResponseValidationError is the validation error returned by
+// FindLinksResponse.Validate if the designated constraints aren't met.
+type FindLinksResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -375,24 +437,24 @@ type SaveLinksBulkRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e SaveLinksBulkRequestValidationError) Field() string { return e.field }
+func (e FindLinksResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SaveLinksBulkRequestValidationError) Reason() string { return e.reason }
+func (e FindLinksResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SaveLinksBulkRequestValidationError) Cause() error { return e.cause }
+func (e FindLinksResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SaveLinksBulkRequestValidationError) Key() bool { return e.key }
+func (e FindLinksResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SaveLinksBulkRequestValidationError) ErrorName() string {
-	return "SaveLinksBulkRequestValidationError"
+func (e FindLinksResponseValidationError) ErrorName() string {
+	return "FindLinksResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e SaveLinksBulkRequestValidationError) Error() string {
+func (e FindLinksResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -404,14 +466,14 @@ func (e SaveLinksBulkRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSaveLinksBulkRequest.%s: %s%s",
+		"invalid %sFindLinksResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SaveLinksBulkRequestValidationError{}
+var _ error = FindLinksResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -419,89 +481,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SaveLinksBulkRequestValidationError{}
-
-// Validate checks the field values on SaveLinksBulkResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *SaveLinksBulkResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	for idx, item := range m.GetItems() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return SaveLinksBulkResponseValidationError{
-					field:  fmt.Sprintf("Items[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// SaveLinksBulkResponseValidationError is the validation error returned by
-// SaveLinksBulkResponse.Validate if the designated constraints aren't met.
-type SaveLinksBulkResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SaveLinksBulkResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SaveLinksBulkResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SaveLinksBulkResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SaveLinksBulkResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SaveLinksBulkResponseValidationError) ErrorName() string {
-	return "SaveLinksBulkResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SaveLinksBulkResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSaveLinksBulkResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SaveLinksBulkResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SaveLinksBulkResponseValidationError{}
+} = FindLinksResponseValidationError{}
 
 // Validate checks the field values on LinkEntity with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
@@ -511,6 +491,8 @@ func (m *LinkEntity) Validate() error {
 	}
 
 	// no validation rules for LinkID
+
+	// no validation rules for UserID
 
 	// no validation rules for Name
 

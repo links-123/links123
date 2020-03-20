@@ -6,23 +6,23 @@ volumes:
 
 services:
   link-rest-gtw:
-    image: golang:1.10-alpine
+    image: golang:1.11-alpine
     env_file:
       - docker-compose.env
     volumes:
       - .:/go/src/github.com/ic2hrmk/links123/
     working_dir: /go/src/github.com/ic2hrmk/links123/
-    command: go run ./entry/entry.go --kind=link-rest-gtw --address=:8080
+    command: go run ./entry/entry.go --kind=link-rest-gtw
     restart: always
 
   link-srv:
-    image: golang:1.10-alpine
+    image: golang:1.11-alpine
     env_file:
       - docker-compose.env
     volumes:
       - .:/go/src/github.com/ic2hrmk/links123/
     working_dir: /go/src/github.com/ic2hrmk/links123/
-    command: go run ./entry/entry.go --kind=link-srv --address=:10001
+    command: go run ./entry/entry.go --kind=link-srv
     restart: always
     depends_on:
       - mongo
@@ -31,14 +31,14 @@ services:
   # 3-rd parties
   #
   mongo:
-    image: mongo:3.4
+    image: mongo:3.6.17-xenial
     logging:
       driver: none
     volumes:
       - links_mongo_data:/data/db
 
   mongo_express:
-    image: mongo-express:0.49
+    image: mongo-express:0.54.0
     ports:
       - 7017:8081
     links:

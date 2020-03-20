@@ -11,9 +11,9 @@ import (
 //
 // Finds all existing links
 //
-func (rcv *linkDomainService) FindAllLinks(
-	ctx context.Context, in *link.FindAllLinksRequest,
-) (*link.FindAllLinksResponse, error) {
+func (rcv *linkDomainService) FindLinks(
+	ctx context.Context, in *link.FindLinksRequest,
+) (*link.FindLinksResponse, error) {
 	//
 	// Validation
 	//
@@ -24,7 +24,13 @@ func (rcv *linkDomainService) FindAllLinks(
 	//
 	// Request handing
 	//
-	records, err := rcv.linkRepository.FindAll(in.GetLimit(), in.GetOffset())
+
+	records, totalLinksNumber, err := rcv.linkRepository.FindByUserID(
+		in.GetUserID(),
+		in.GetLimit(),
+		in.GetOffset(),
+	)
+
 	if err != nil {
 		return nil, rcv.wrapInternalError(errors.Wrap(err, "failed to perform search"))
 	}
@@ -32,8 +38,9 @@ func (rcv *linkDomainService) FindAllLinks(
 	//
 	// Assemble response
 	//
-	out := &link.FindAllLinksResponse{
-		Items: make([]*link.LinkEntity, len(records)),
+	out := &link.FindLinksResponse{
+		Items:            make([]*link.LinkEntity, len(records)),
+		TotalLinksNumber: totalLinksNumber,
 	}
 
 	for i := range records {

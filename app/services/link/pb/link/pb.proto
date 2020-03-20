@@ -9,34 +9,36 @@ option go_package = "link";
 //@formatter:off
 
 service LinkDomainService {
-    rpc FindAllLinks    (FindAllLinksRequest)   returns (FindAllLinksResponse) {}
-    rpc SaveLink        (SaveLinkRequest)       returns (SaveLinkResponse) {}
-    rpc SaveLinksBulk   (SaveLinksBulkRequest)  returns (SaveLinksBulkResponse) {}
+    rpc CreateLink (CreateLinkRequest) returns (CreateLinkResponse) {}
+    rpc DeleteLink (DeleteLinkRequest) returns (DeleteLinkResponse) {}
+
+    rpc FindLinks  (FindLinksRequest)  returns (FindLinksResponse) {}
 }
 
-message FindAllLinksRequest {
-    uint64 Limit  = 1;
-    uint64 Offset = 2;
-}
-
-message FindAllLinksResponse {
-    repeated LinkEntity Items   = 1;
-}
-
-message SaveLinkRequest {
+message CreateLinkRequest {
     LinkEntity Link = 1 [(validate.rules).message.required = true];
 }
 
-message SaveLinkResponse {
+message CreateLinkResponse {
     LinkEntity Link = 1;
 }
 
-message SaveLinksBulkRequest {
-    repeated LinkEntity Items = 1;
+message DeleteLinkRequest {
+    string LinkID  = 1 [(validate.rules).string.min_len = 1];
+    string UserID  = 2 [(validate.rules).string.min_len = 1];
 }
 
-message SaveLinksBulkResponse {
+message DeleteLinkResponse {}
+
+message FindLinksRequest {
+    string UserID = 1 [(validate.rules).string.min_len = 1];
+    uint64 Limit  = 2;
+    uint64 Offset = 3;
+}
+
+message FindLinksResponse {
     repeated LinkEntity Items = 1;
+    uint64   TotalLinksNumber = 2;
 }
 
 //
@@ -44,9 +46,10 @@ message SaveLinksBulkResponse {
 //
 
 message LinkEntity {
-    string LinkID  = 1 [(validate.rules).string.min_len = 1];
-    string Name    = 2 [(validate.rules).string.min_len = 1];
-    string Address = 3 [(validate.rules).string.min_len = 1];
+    string LinkID  = 1;
+    string UserID  = 2;
+    string Name    = 3 [(validate.rules).string.min_len = 1];
+    string Address = 4 [(validate.rules).string.min_len = 1];
 }
 
 //

@@ -5,6 +5,7 @@ package model
 //
 type Link struct {
 	LinkID  string `bson:"_id"`
+	UserID  string `bson:"userID"`
 	Name    string `bson:"name"`
 	Address string `bson:"address"`
 }

@@ -49,4 +49,20 @@ func (rcv *linkRESTService) initWebService() {
 		Writes(representation.LinkListResponse{}).
 		Returns(http.StatusOK, http.StatusText(http.StatusOK), representation.LinkListResponse{}).
 		Returns(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), representation.ErrorResponse{}))
+
+	ws.Route(ws.POST("/links").
+		To(rcv.createLink).
+		Operation("createLink").
+		Reads(representation.LinkCreateRequest{}).
+		Writes(representation.LinkEntityResponse{}).
+		Returns(http.StatusOK, http.StatusText(http.StatusOK), representation.LinkListResponse{}).
+		Returns(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), representation.ErrorResponse{}))
+
+	ws.Route(ws.DELETE("/links").
+		To(rcv.deleteLink).
+		Operation("deleteLink").
+		Reads(representation.LinkDeleteRequest{}).
+		Returns(http.StatusNoContent, http.StatusText(http.StatusOK), nil).
+		Returns(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError), representation.ErrorResponse{}))
+
 }

@@ -31,8 +31,9 @@ func (rcv *linkRESTService) getLinks(request *restful.Request, response *restful
 	//
 	// Request information
 	//
-	linksDetails, err := rcv.linkServiceClient.FindAllLinks(context.Background(),
-		&linkPb.FindAllLinksRequest{
+	linksDetails, err := rcv.linkServiceClient.FindLinks(context.Background(),
+		&linkPb.FindLinksRequest{
+			UserID: "demo",
 			Limit:  limit,
 			Offset: offset,
 		})
@@ -46,8 +47,8 @@ func (rcv *linkRESTService) getLinks(request *restful.Request, response *restful
 	// Assemble response
 	//
 	out := &representation.LinkListResponse{
-		Items: make([]*representation.LinkEntityResponse, len(linksDetails.GetItems())),
-		Found: len(linksDetails.GetItems()),
+		Items:            make([]*representation.LinkEntityResponse, len(linksDetails.GetItems())),
+		TotalLinksNumber: linksDetails.GetTotalLinksNumber(),
 	}
 
 	for i, link := range linksDetails.GetItems() {

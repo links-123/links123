@@ -8,6 +8,11 @@ type ErrorResponse representation.ErrorResponse
 // Verbose error messages
 //
 const (
+	ErrIncorrectRequest = "IncorrectRequest"
+
 	ErrInvalidLimitParameter  = "InvalidLimitParameter"
 	ErrInvalidOffsetParameter = "InvalidOffsetParameter"
+
+	ErrInvalidCreateRequest = "InvalidCreateRequest"
+	ErrInvalidDeleteRequest = "InvalidDeleteRequest"
 )

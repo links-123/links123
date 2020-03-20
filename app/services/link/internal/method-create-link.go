@@ -10,11 +10,11 @@ import (
 )
 
 //
-// Saves link to persistence
+// Creates link to persistence
 //
-func (rcv *linkDomainService) SaveLink(
-	ctx context.Context, in *link.SaveLinkRequest,
-) (*link.SaveLinkResponse, error) {
+func (rcv *linkDomainService) CreateLink(
+	ctx context.Context, in *link.CreateLinkRequest,
+) (*link.CreateLinkResponse, error) {
 	var err error
 
 	//
@@ -33,6 +33,7 @@ func (rcv *linkDomainService) SaveLink(
 	//
 	snapshot := &model.Link{
 		LinkID:  in.GetLink().GetLinkID(),
+		UserID:  in.GetLink().GetUserID(),
 		Name:    in.GetLink().GetName(),
 		Address: in.GetLink().GetAddress(),
 	}
@@ -48,7 +49,7 @@ func (rcv *linkDomainService) SaveLink(
 	//
 	// Assemble response
 	//
-	return &link.SaveLinkResponse{
+	return &link.CreateLinkResponse{
 		Link: &link.LinkEntity{
 			LinkID:  snapshot.LinkID,
 			Name:    snapshot.Name,

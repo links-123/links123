@@ -7,4 +7,3 @@ const (
 	OffsetParameterName = "offset"
 	DefaultOffsetValue  = 0
 )
-

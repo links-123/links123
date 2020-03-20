@@ -6,12 +6,13 @@ import (
 )
 
 var (
-	ErrLinkNotFound = errors.New("ErrLinkNotFound")
+	ErrLinkNotFound   = errors.New("ErrLinkNotFound")
+	ErrStorageFailure = errors.New("StorageFailure")
 )
 
 type LinkRepository interface {
-	Save(*model.Link) (*model.Link, error)
-	SaveBulk([]*model.Link) error
+	Save(link *model.Link) (*model.Link, error)
+	Delete(linkID, userID string) error
 
-	FindAll(limit, offset uint64) ([]*model.Link, error)
+	FindByUserID(userID string, limit, offset uint64) (links []*model.Link, allFound uint64, err error)
 }
