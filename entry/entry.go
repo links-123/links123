@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/ic2hrmk/links123/shared/version"
 	"log"
 
 	linkRESTGateway "github.com/ic2hrmk/links123/app/gateways/link/api/rest"
@@ -12,18 +12,9 @@ import (
 	"github.com/ic2hrmk/links123/registry"
 	"github.com/ic2hrmk/links123/shared/cmd"
 	"github.com/ic2hrmk/links123/shared/env"
-	"github.com/ic2hrmk/links123/shared/version"
 )
 
-const ApplicationName = "links123"
-
-func printVersion() {
-	fmt.Printf("%s %s\n", ApplicationName, version.GetVersion())
-}
-
 func main() {
-	printVersion()
-
 	//
 	// Load startup flags
 	//
@@ -33,6 +24,7 @@ func main() {
 	// Check for version request
 	//
 	if flags.ShowVersionOnly {
+		log.Print(version.GetVersion())
 		return
 	}
 
@@ -70,6 +62,6 @@ func main() {
 	//
 	// Run till the death comes
 	//
-	log.Printf("service [%s] is started", flags.Kind)
+	log.Printf("%s, service [%s] is started", version.GetVersion(), flags.Kind)
 	log.Fatal(service.Serve())
 }

@@ -9,6 +9,6 @@ var (
 )
 
 func GetVersion() string {
-	return fmt.Sprintf("version %s commitHash=%s builtAt=%s",
+	return fmt.Sprintf("links 1,2,3! version %s commitHash=%s builtAt=%s",
 		Version, CommitHash, BuiltAt)
 }
