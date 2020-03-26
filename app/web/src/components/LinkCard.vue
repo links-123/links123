@@ -1,26 +1,59 @@
 <template>
-    <div class="col-sm-6 col-md-4 col-lg-4">
-        <div class="media card p-30">
-            <div class="media-body media-text-left">
-                <a v-bind:href=link.address target="_blank">
-                    <h2>{{ link.name }}</h2>
-                </a>
-                <a v-bind:href=link.address target="_blank"
-                   class="m-b-0">
-                    {{ link.address }}
-                </a>
-            </div>
+    <div class="card">
 
+        <!-- Named link -->
+        <div v-if="link.name !== ''" class="card-body">
+            <h5 class="card-title">
+                <a v-bind:href=link.address target="_blank">
+                    {{ link.name | truncate(64, '...')}}
+                </a>
+            </h5>
+            <a v-bind:href=link.address class="card-link" target="_blank">
+                {{ link.address | truncate(64, '...')}}
+            </a>
+            <i class="icon-paper-clip card-link"
+               v-on:click="showCopiedMessage()"
+               v-clipboard="link.address">
+            </i>
+            <i class="icon-trash card-link"
+               @click="$emit('del-link', link.id)"></i>
+        </div>
+
+        <!-- Unnamed link -->
+        <div v-else class="card-body">
+            <h5 class="card-title">
+                <a v-bind:href=link.address target="_blank">
+                    {{link.address | truncate(64, '...')}}
+                </a>
+            </h5>
+            <i class="icon-paper-clip card-link"
+               v-on:click="showCopiedMessage()"
+               v-clipboard="link.address">
+            </i>
+            <i class="icon-trash card-link"
+               @click="$emit('del-link', link.id)">
+            </i>
         </div>
     </div>
 </template>
+
+<!--https://codesandbox.io/s/9oqml4vyyr-->
 
 <script>
     export default {
         name: "LinkCard",
         props: [
             "link"
-        ]
+        ],
+        methods: {
+            showCopiedMessage() {
+                let toast = this.$toasted.show("Copied!", {
+                    theme: "outline",
+                    position: "top-center",
+                    duration: 1000
+                });
+            }
+        }
     }
 </script>
 

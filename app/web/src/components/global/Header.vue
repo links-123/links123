@@ -15,7 +15,18 @@
                 </a>
             </div>
             <!-- End Logo -->
+
             <div class="navbar-collapse">
+                <ul class="navbar-nav mr-auto my-lg-0">
+                    <li class="nav-item">
+                        <button
+                                type="button"
+                                class="btn btn btn-outline-success btn-sm"
+                        >
+                            <i class="fa fa-magic"></i>&nbsp; Add link
+                        </button>
+                    </li>
+                </ul>
                 <!-- User profile and search -->
                 <ul class="navbar-nav ml-auto my-lg-0">
                     <!-- Profile -->
@@ -60,7 +71,8 @@
                 isUserInfo: false
             }
         },
-        components: {},
+        components: {
+        },
         methods: {
             toggle(e) {
                 //this.isOpen = !this.isOpen
@@ -78,7 +90,6 @@
             handleUserInfo(e) {
                 this.isUserInfo = !this.isUserInfo;
             }
-
         }
     }
 </script>
