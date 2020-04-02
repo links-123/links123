@@ -3,7 +3,7 @@ package internal
 import (
 	"log"
 
-	"github.com/ic2hrmk/links123/app/services/link/pb/link"
+	"github.com/links-123/links123/app/services/link/pb/link"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

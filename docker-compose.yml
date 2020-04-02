@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.3'
 
 volumes:
   links_mongo_data:
@@ -6,26 +6,24 @@ volumes:
 
 services:
   link-rest-gtw:
-    image: golang:1.11-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
-      - docker-compose.env
-    volumes:
-      - .:/go/src/github.com/ic2hrmk/links123/
-    working_dir: /go/src/github.com/ic2hrmk/links123/
-    command: go run ./entry/entry.go --kind=link-rest-gtw
+      - ./compose/compose.env
+    command: "--kind=link-rest-gtw"
     restart: always
 
   link-srv:
-    image: golang:1.11-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
-      - docker-compose.env
-    volumes:
-      - .:/go/src/github.com/ic2hrmk/links123/
-    working_dir: /go/src/github.com/ic2hrmk/links123/
-    command: go run ./entry/entry.go --kind=link-srv
+      - ./compose/compose.env
     restart: always
     depends_on:
       - mongo
+    command: "--kind=link-srv"
 
   #
   # 3-rd parties
@@ -52,10 +50,12 @@ services:
     image: nginx:1.17.6
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./docker-compose.restapi.nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./compose/nginx/api_conf.d/:/etc/nginx/api_conf.d/
+      - ./compose/nginx/tls/:/etc/nginx/tls/
+      - ./compose/nginx/api_backends.conf:/etc/nginx/api_backends.conf
+      - ./compose/nginx/api_gateways.conf:/etc/nginx/api_gateways.conf
+      - ./compose/nginx/api_json_errors.conf:/etc/nginx/api_json_errors.conf
+      - ./compose/nginx/nginx.conf:/etc/nginx/nginx.conf
     restart: always
-#    logging:
-#      driver: none
-    depends_on:
-      - link-rest-gtw

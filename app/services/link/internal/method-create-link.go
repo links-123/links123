@@ -5,8 +5,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/ic2hrmk/links123/app/services/link/pb/link"
-	"github.com/ic2hrmk/links123/app/services/link/persistence/model"
+	"github.com/links-123/links123/app/services/link/pb/link"
+	"github.com/links-123/links123/app/services/link/persistence/model"
 )
 
 //

@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"github.com/emicklei/go-restful"
-	"github.com/ic2hrmk/links123/shared/gateway/representation"
+	"github.com/links-123/links123/shared/gateway/representation"
 	"log"
 	"net/http"
 )

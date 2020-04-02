@@ -8,9 +8,9 @@ APP_NAME=links123
 VERSION = $(shell git tag --sort="v:refname" | tail -n1)
 GITHASH = $(shell git rev-parse --short HEAD)
 
-LDFLAGS += -X github.com/ic2hrmk/links123/shared/version.Version=$(VERSION)
-LDFLAGS += -X github.com/ic2hrmk/links123/shared/version.CommitHash=$(GITHASH)
-LDFLAGS += -X github.com/ic2hrmk/links123/shared/version.BuiltAt=$(shell date +"%D-%T")
+LDFLAGS += -X github.com/links-123/links123/shared/version.Version=$(VERSION)
+LDFLAGS += -X github.com/links-123/links123/shared/version.CommitHash=$(GITHASH)
+LDFLAGS += -X github.com/links-123/links123/shared/version.BuiltAt=$(shell date +"%D-%T")
 
 install-dependency-manager:
 	go get -u github.com/golang/dep/cmd/dep

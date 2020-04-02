@@ -1,7 +1,7 @@
 package registry
 
 import (
-	"github.com/ic2hrmk/links123/app"
+	"github.com/links-123/links123/app"
 	"github.com/pkg/errors"
 )
 

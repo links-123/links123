@@ -1,17 +1,17 @@
 package main
 
 import (
-	"github.com/ic2hrmk/links123/shared/version"
+	"github.com/links-123/links123/shared/version"
 	"log"
 
-	linkRESTGateway "github.com/ic2hrmk/links123/app/gateways/link/api/rest"
-	linkService "github.com/ic2hrmk/links123/app/services/link"
+	linkRESTGateway "github.com/links-123/links123/app/gateways/link/link-rest-gtw"
+	linkService "github.com/links-123/links123/app/services/link"
 
 	"github.com/pkg/errors"
 
-	"github.com/ic2hrmk/links123/registry"
-	"github.com/ic2hrmk/links123/shared/cmd"
-	"github.com/ic2hrmk/links123/shared/env"
+	"github.com/links-123/links123/registry"
+	"github.com/links-123/links123/shared/cmd"
+	"github.com/links-123/links123/shared/env"
 )
 
 func main() {

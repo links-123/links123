@@ -1,14 +1,14 @@
 package link
 
 import (
-	sharedMongo "github.com/ic2hrmk/links123/shared/persistence/mongo"
+	sharedMongo "github.com/links-123/links123/shared/persistence/mongo"
 	"github.com/pkg/errors"
 
 	"github.com/globalsign/mgo"
-	"github.com/ic2hrmk/links123/app"
-	"github.com/ic2hrmk/links123/app/services/link/config"
-	"github.com/ic2hrmk/links123/app/services/link/internal"
-	"github.com/ic2hrmk/links123/app/services/link/persistence/repository/mongo"
+	"github.com/links-123/links123/app"
+	"github.com/links-123/links123/app/services/link/config"
+	"github.com/links-123/links123/app/services/link/internal"
+	"github.com/links-123/links123/app/services/link/persistence/repository/mongo"
 )
 
 const ServiceName = "link-srv"

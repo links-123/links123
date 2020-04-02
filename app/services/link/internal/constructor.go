@@ -2,14 +2,14 @@ package internal
 
 import (
 	validation "github.com/go-ozzo/ozzo-validation"
-	"github.com/ic2hrmk/links123/app/services/link/persistence/repository"
+	"github.com/links-123/links123/app/services/link/persistence/repository"
 	"github.com/pkg/errors"
 	"log"
 	"net"
 
-	linkPb "github.com/ic2hrmk/links123/app/services/link/pb/link"
+	linkPb "github.com/links-123/links123/app/services/link/pb/link"
 
-	"github.com/ic2hrmk/links123/app"
+	"github.com/links-123/links123/app"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
