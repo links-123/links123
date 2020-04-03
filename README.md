@@ -55,3 +55,4 @@ To run linter, use next command:
 ~~~bash
 make run-linter
 ~~~
+ 
