@@ -1,15 +1,15 @@
-FROM golang:1.11-alpine AS BUILDER
+FROM golang:1.14.1-alpine3.11 AS BUILDER
 
-WORKDIR /go/src/github.com/links-123/links123
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN apk add git make && \
+    go mod download
 COPY . .
-RUN apk add make git
-RUN make install-dependency-manager && \
-    make run-dependency-manager && \
-    make build
+RUN make build
 
 FROM alpine:3.11.5 AS RUNNER
 RUN apk --no-cache add ca-certificates
 WORKDIR /app/
-COPY --from=BUILDER /go/src/github.com/links-123/links123/links123 .
+COPY --from=BUILDER /app/links123 .
 ENTRYPOINT ["./links123"]
 CMD ["--version"]

@@ -2,23 +2,21 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.10
-    working_directory: /go/src/github.com/ic2hrmk/links123
+      - image: circleci/golang:1.14.1-stretch
+    working_directory: /go/src/github.com/links-123/links123
     steps:
       - checkout
       - restore_cache:
-          key: gopkg-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
-          paths:
-            - /go/src/github.com/ic2hrmk/links123/vendor
+          keys:
+            - go-mod-v1-{{ checksum "go.sum" }}
       - run:
           name: Download project dependencies
           command: |
-            make install-dependency-manager
-            make run-dependency-manager
+            go mod download
       - save_cache:
-          key: gopkg-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
+          key: go-mod-v1-{{ checksum "go.sum" }}
           paths:
-            - /go/src/github.com/ic2hrmk/links123/vendor
+            - "/go/pkg/mod"
       - run:
           name: Build
           command: |
@@ -26,7 +24,7 @@ jobs:
 
 
   build_images:
-    working_directory: /go/src/github.com/ic2hrmk/links123
+    working_directory: /go/src/github.com/links-123/links123
     docker:
       - image: docker:git
     steps:
@@ -44,8 +42,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/golang:1.10
-    working_directory: /go/src/github.com/ic2hrmk/links123
+      - image: docker:git
     steps:
       - run:
           name: Deployment
