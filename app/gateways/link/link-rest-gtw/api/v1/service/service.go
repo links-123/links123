@@ -3,22 +3,22 @@ package service
 import (
 	"net/http"
 
+	"github.com/links-123/links123/app"
 	linkPb "github.com/links-123/links123/app/services/link/pb/link"
 
 	"github.com/emicklei/go-restful"
 
-	"github.com/links-123/links123/app/gateways/link/link-rest-gtw/api"
 	"github.com/links-123/links123/app/gateways/link/link-rest-gtw/api/v1/representation"
 )
 
 type linkRESTService struct {
 	webService        *restful.WebService
-	linkServiceClient linkPb.LinkDomainServiceClient
+	linkServiceClient linkPb.LinkDomainService
 }
 
 func NewLinkRESTService(
-	linkServiceClient linkPb.LinkDomainServiceClient,
-) api.RESTAPIVersionedService {
+	linkServiceClient linkPb.LinkDomainService,
+) app.RESTAPIVersionedService {
 	rcv := &linkRESTService{
 		webService:        &restful.WebService{},
 		linkServiceClient: linkServiceClient,

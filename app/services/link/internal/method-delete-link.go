@@ -12,30 +12,34 @@ import (
 // Creates link to persistence
 //
 func (rcv *linkDomainService) DeleteLink(
-	ctx context.Context, in *link.DeleteLinkRequest,
-) (*link.DeleteLinkResponse, error) {
+	ctx context.Context,
+	in *link.DeleteLinkRequest,
+	out *link.DeleteLinkResponse,
+) error {
 	var err error
 
 	//
 	// Validation
 	//
 	if in == nil {
-		return nil, rcv.wrapInvalidRequest(errors.New("request is empty"))
+		return rcv.wrapInvalidRequest(errors.New("request is empty"))
 	}
 
 	if err = in.Validate(); err != nil {
-		return nil, rcv.wrapInvalidRequest(err)
+		return rcv.wrapInvalidRequest(err)
 	}
 
 	//
 	// Request handing
 	//
 	if err = rcv.linkRepository.Delete(in.GetLinkID(), in.GetUserID()); err != nil {
-		return nil, rcv.wrapInternalError(errors.Wrap(err, "unable to remove link"))
+		return rcv.wrapInternalError(errors.Wrap(err, "unable to remove link"))
 	}
 
 	//
 	// Assemble response
 	//
-	return &link.DeleteLinkResponse{}, nil
+	out = &link.DeleteLinkResponse{}
+
+	return nil
 }

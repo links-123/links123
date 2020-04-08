@@ -12,13 +12,15 @@ import (
 // Finds all existing links
 //
 func (rcv *linkDomainService) FindLinks(
-	ctx context.Context, in *link.FindLinksRequest,
-) (*link.FindLinksResponse, error) {
+	ctx context.Context,
+	in *link.FindLinksRequest,
+	out *link.FindLinksResponse,
+) error {
 	//
 	// Validation
 	//
 	if err := in.Validate(); err != nil {
-		return nil, rcv.wrapInvalidRequest(err)
+		return rcv.wrapInvalidRequest(err)
 	}
 
 	//
@@ -32,16 +34,14 @@ func (rcv *linkDomainService) FindLinks(
 	)
 
 	if err != nil {
-		return nil, rcv.wrapInternalError(errors.Wrap(err, "failed to perform search"))
+		return rcv.wrapInternalError(errors.Wrap(err, "failed to perform search"))
 	}
 
 	//
 	// Assemble response
 	//
-	out := &link.FindLinksResponse{
-		Items:            make([]*link.LinkEntity, len(records)),
-		TotalLinksNumber: totalLinksNumber,
-	}
+	out.Items = make([]*link.LinkEntity, len(records))
+	out.TotalLinksNumber = totalLinksNumber
 
 	for i := range records {
 		out.Items[i] = &link.LinkEntity{
@@ -51,5 +51,5 @@ func (rcv *linkDomainService) FindLinks(
 		}
 	}
 
-	return out, nil
+	return nil
 }

@@ -1,71 +1,68 @@
 package link_rest_gtw
 
 import (
+	"github.com/micro/go-micro/v2/client"
+	"github.com/micro/go-micro/v2/config"
+	"github.com/pkg/errors"
+
 	linkPb "github.com/links-123/links123/app/services/link/pb/link"
 
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-
 	"github.com/links-123/links123/app"
-	"github.com/links-123/links123/app/gateways/link/link-rest-gtw/config"
 	"github.com/links-123/links123/app/gateways/link/link-rest-gtw/internal"
+	"github.com/links-123/links123/app/services/link"
+	"github.com/links-123/links123/shared/microservice"
 )
 
-const ServiceName = "link-rest-gtw"
+const ServiceName = "link123.link.restgtw"
 
 //
-// Service constructor
+// ServiceName constructor
 //
-func FactoryMethod() (app.MicroService, error) {
+func FactoryMethod(configSource config.Config) (app.MicroService, error) {
 	//
 	// Resolve configurations
 	//	- clients's configurations
 	//  - gateway's configurations
 	//
-	configurations, err := resolveConfigurations()
+	configurations, err := ResolveConfigurations(configSource)
 	if err != nil {
-		return nil, err
-	}
-
-	//
-	// Init. gateway configurations
-	//
-	gatewayConfigurationBuilder := internal.NewLinkRESTGatewayConfigBuilder()
-
-	gatewayConfigurationBuilder.
-		SetLinkServiceAddress(configurations.LinkDomainServiceAddress).
-		SetServeAddress(configurations.ServeAddress)
-
-	gatewayConfiguration, err := gatewayConfigurationBuilder.Build()
-	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to resolve configurations")
 	}
 
 	//
 	// Init. clients
 	//
-	linkServiceClient, err := initLinkServiceClient(configurations.LinkDomainServiceAddress)
+	linkServiceClient, err := initLinkServiceClient()
 	if err != nil {
 		return nil, errors.Errorf("failed to init. link service client, %s", err)
 	}
 
-	return internal.NewLinkDomainService(
-		gatewayConfiguration,
+	//
+	// Init. the whole microservice
+	//
+
+	// Business logic processor
+	linkRESTGateway := internal.NewLinkDomainService(
 		linkServiceClient,
-	), nil
-}
+	)
 
-func resolveConfigurations() (*config.ConfigurationContainer, error) {
-	return config.ResolveConfigurations()
-}
+	// Request serving service
+	microService, err := microservice.NewWebService(
+		ServiceName,
+		configurations.serveAddress,
+		linkRESTGateway.GetHttpHandler(),
+	)
 
-func initLinkServiceClient(address string) (linkPb.LinkDomainServiceClient, error) {
-	var conn *grpc.ClientConn
-
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
-		return nil, errors.Errorf("unable to connect: %s", err)
+		return nil, errors.Wrap(err, "failed to inti. web service")
 	}
 
-	return linkPb.NewLinkDomainServiceClient(conn), nil
+	return microService, nil
+}
+
+func initLinkServiceClient() (linkPb.LinkDomainService, error) {
+	return linkPb.NewLinkDomainService(
+		link.ServiceName,
+		client.DefaultClient,
+	), nil
 }

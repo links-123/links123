@@ -15,7 +15,7 @@ _LDFLAGS += -X github.com/links-123/links123/shared/version.BuiltAt=$(shell date
 # Building
 
 build: clean
-	@go build -o $(_APP_NAME) -ldflags "$(_LDFLAGS)" entry/entry.go
+	@CGO_ENABLED=0 go build -o $(_APP_NAME) -ldflags "$(_LDFLAGS)" entry/entry.go
 	@./$(_APP_NAME) --version
 
 clean:

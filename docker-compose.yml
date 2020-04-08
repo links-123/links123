@@ -11,7 +11,7 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./compose/compose.env
-    command: "--kind=link-rest-gtw"
+    command: "--kind=link123.link.restgtw"
     restart: always
 
   link-srv:
@@ -23,7 +23,7 @@ services:
     restart: always
     depends_on:
       - mongo
-    command: "--kind=link-srv"
+    command: "--kind=link123.link.srv"
 
   #
   # 3-rd parties
