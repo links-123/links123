@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Links full REST" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="REST">
+  <configuration default="false" name="Links back service" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="Backend">
     <module name="links123" />
     <working_directory value="$PROJECT_DIR$/" />
     <go_parameters value="-i" />
-    <parameters value="--kind=links123.link.restgtw --env=.env" />
+    <parameters value="--kind=links123.link.srv --env=.env" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />

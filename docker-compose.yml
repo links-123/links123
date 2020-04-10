@@ -11,8 +11,11 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./compose/compose.env
-    command: "--kind=link123.link.restgtw"
+    command: "--kind=links123.link.restgtw"
     restart: always
+    depends_on:
+      - link-srv
+      - consul
 
   link-srv:
     build:
@@ -21,9 +24,10 @@ services:
     env_file:
       - ./compose/compose.env
     restart: always
+    command: "--kind=links123.link.srv"
     depends_on:
       - mongo
-    command: "--kind=link123.link.srv"
+      - consul
 
   #
   # 3-rd parties
@@ -45,6 +49,14 @@ services:
       driver: none
     depends_on:
       - mongo
+
+  consul:
+    image: consul:1.7.2
+    ports:
+      - "8500:8500"
+    restart: on-failure
+    logging:
+      driver: none
 
   nginx-rest-api:
     image: nginx:1.17.6

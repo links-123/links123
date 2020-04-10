@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	ServiceName = "link123.link.srv"
+	ServiceName = "links123.link.srv"
 	mongoDBName = "link-srv"
 )
 

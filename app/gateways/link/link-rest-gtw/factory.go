@@ -13,7 +13,7 @@ import (
 	"github.com/links-123/links123/shared/microservice"
 )
 
-const ServiceName = "link123.link.restgtw"
+const ServiceName = "links123.link.restgtw"
 
 //
 // ServiceName constructor
