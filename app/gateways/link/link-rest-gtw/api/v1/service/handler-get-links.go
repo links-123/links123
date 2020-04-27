@@ -19,12 +19,12 @@ func (rcv *linkRESTService) getLinks(request *restful.Request, response *restful
 	// Get limit and offset
 	//
 	if limit, err = getLimitParameter(request); err != nil {
-		helpers.ResponseWithBadRequest(response, err, representation.ErrInvalidLimitParameter)
+		helpers.RespondWithBadRequest(response, rcv.log, err, representation.ErrInvalidLimitParameter)
 		return
 	}
 
 	if offset, err = getOffsetParameter(request); err != nil {
-		helpers.ResponseWithBadRequest(response, err, representation.ErrInvalidOffsetParameter)
+		helpers.RespondWithBadRequest(response, rcv.log, err, representation.ErrInvalidOffsetParameter)
 		return
 	}
 
@@ -39,7 +39,7 @@ func (rcv *linkRESTService) getLinks(request *restful.Request, response *restful
 		})
 
 	if err != nil {
-		helpers.ResponseWithInternalError(response, err)
+		helpers.RespondWithInternalError(response, rcv.log, err)
 		return
 	}
 
@@ -59,5 +59,5 @@ func (rcv *linkRESTService) getLinks(request *restful.Request, response *restful
 		}
 	}
 
-	helpers.ResponseWithOK(response, out)
+	helpers.RespondWithOK(response, rcv.log, out)
 }

@@ -20,6 +20,7 @@ const (
 // Configuration container
 //
 type gatewayConfiguration struct {
+	instanceID   string
 	serveAddress string
 }
 
@@ -31,6 +32,10 @@ func (rcv *gatewayConfiguration) Validate() error {
 
 func ResolveConfigurations(configSource config.Config) (*gatewayConfiguration, error) {
 	builder := newGatewayConfigurationBuilder().
+		SetInstanceID(configSource.
+			Get(configuration.InstanceID).
+			String("unknown"),
+		).
 		SetServeAddress(configSource.
 			Get(configuration.EnvVarAsConfigurationPath(restGatewayAddressParameter)...).
 			String(restGatewayAddressDefaultValue),
@@ -40,6 +45,7 @@ func ResolveConfigurations(configSource config.Config) (*gatewayConfiguration, e
 }
 
 type gatewayConfigurationBuilder struct {
+	instanceID   string
 	serveAddress string
 }
 
@@ -49,6 +55,11 @@ func newGatewayConfigurationBuilder() *gatewayConfigurationBuilder {
 	}
 }
 
+func (rcv *gatewayConfigurationBuilder) SetInstanceID(instanceID string) *gatewayConfigurationBuilder {
+	rcv.instanceID = instanceID
+	return rcv
+}
+
 func (rcv *gatewayConfigurationBuilder) SetServeAddress(address string) *gatewayConfigurationBuilder {
 	rcv.serveAddress = address
 	return rcv
@@ -56,6 +67,7 @@ func (rcv *gatewayConfigurationBuilder) SetServeAddress(address string) *gateway
 
 func (rcv *gatewayConfigurationBuilder) Build() (*gatewayConfiguration, error) {
 	conf := &gatewayConfiguration{
+		instanceID:   rcv.instanceID,
 		serveAddress: rcv.serveAddress,
 	}
 

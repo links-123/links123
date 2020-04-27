@@ -1,7 +1,8 @@
 package main
 
 import (
-	"log"
+	"fmt"
+	"os"
 
 	"github.com/pkg/errors"
 
@@ -9,6 +10,7 @@ import (
 	linkService "github.com/links-123/links123/app/services/link"
 
 	"github.com/links-123/links123/shared/configuration"
+	"github.com/links-123/links123/shared/logging"
 	"github.com/links-123/links123/shared/registry"
 	"github.com/links-123/links123/shared/version"
 )
@@ -16,15 +18,25 @@ import (
 func main() {
 	behavior, config, err := configuration.LoadSharedConfigurations()
 	if err != nil {
-		log.Fatal(errors.Wrap(err, "failed to startup parse configurations"))
+		fmt.Println(errors.Wrap(err, "failed to startup parse configurations"))
+		os.Exit(1)
 	}
 
 	//
 	// Check for version request
 	//
 	if behavior.ShowVersionOnly {
-		log.Print(version.GetVersion())
+		fmt.Print(version.GetVersion())
 		return
+	}
+
+	//
+	// Initialize logger
+	//
+	logger, err := logging.NewLogger(config)
+	if err != nil {
+		fmt.Println(errors.Wrap(err, "failed to initialize logging"))
+		os.Exit(1)
 	}
 
 	//
@@ -37,23 +49,23 @@ func main() {
 
 	serviceFactory, err := registryContainer.Get(behavior.ServiceKind)
 	if err != nil {
-		log.Fatal(errors.Wrap(err, "failed to initialize service"))
+		logger.Fatal(errors.Wrap(err, "failed to initialize service"))
 	}
 
 	//
 	// Create service
 	//
-	service, err := serviceFactory(config)
+	service, err := serviceFactory(config, logger)
 	if err != nil {
-		log.Fatal(errors.Wrapf(err, "failed to initialize application [%s]", behavior.ServiceKind))
+		logger.Fatal(errors.Wrapf(err, "failed to initialize application [%s]", behavior.ServiceKind))
 	}
 
 	//
 	// Run till the death comes
 	//
-	log.Printf("%s, service [%s] is started", version.GetVersion(), behavior.ServiceKind)
+	logger.Infof("%s, service [%s] is started", version.GetVersion(), behavior.ServiceKind)
 	if err = service.Run(); err != nil {
-		log.Fatal(errors.Wrapf(err, "service [%s] stopped unexpectedly due to error", behavior.ServiceKind))
+		logger.Fatal(errors.Wrapf(err, "service [%s] stopped unexpectedly due to error", behavior.ServiceKind))
 	}
-	log.Printf("service [%s] gracefully shutted down, bye bye!", behavior.ServiceKind)
+	logger.Infof("service [%s] gracefully shutted down, bye bye!", behavior.ServiceKind)
 }

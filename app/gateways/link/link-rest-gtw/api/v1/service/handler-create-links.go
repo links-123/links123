@@ -18,12 +18,12 @@ func (rcv *linkRESTService) createLink(request *restful.Request, response *restf
 	)
 
 	if err = request.ReadEntity(createRequest); err != nil {
-		helpers.ResponseWithBadRequest(response, err, representation.ErrIncorrectRequest)
+		helpers.RespondWithBadRequest(response, rcv.log, err, representation.ErrIncorrectRequest)
 		return
 	}
 
 	if err = createRequest.Validate(); err != nil {
-		helpers.ResponseWithBadRequest(response, err, representation.ErrInvalidCreateRequest)
+		helpers.RespondWithBadRequest(response, rcv.log, err, representation.ErrInvalidCreateRequest)
 		return
 	}
 
@@ -40,7 +40,7 @@ func (rcv *linkRESTService) createLink(request *restful.Request, response *restf
 		})
 
 	if err != nil {
-		helpers.ResponseWithInternalError(response, err)
+		helpers.RespondWithInternalError(response, rcv.log, err)
 		return
 	}
 
@@ -53,5 +53,5 @@ func (rcv *linkRESTService) createLink(request *restful.Request, response *restf
 		Address: linksDetails.GetLink().GetAddress(),
 	}
 
-	helpers.ResponseWithOK(response, out)
+	helpers.RespondWithOK(response, rcv.log, out)
 }

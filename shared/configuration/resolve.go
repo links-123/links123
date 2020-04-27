@@ -3,11 +3,12 @@ package configuration
 import (
 	"flag"
 
+	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	microConfig "github.com/micro/go-micro/v2/config"
+	microSource "github.com/micro/go-micro/v2/config/source"
 	microEnv "github.com/micro/go-micro/v2/config/source/env"
 	microFlag "github.com/micro/go-micro/v2/config/source/flag"
-
-	"github.com/joho/godotenv"
 	"github.com/pkg/errors"
 )
 
@@ -30,15 +31,6 @@ func LoadSharedConfigurations() (Behavior, microConfig.Config, error) {
 	)
 
 	//
-	// Load external environment variables
-	//
-	if envFilePath != "" {
-		if err = godotenv.Load(envFilePath); err != nil {
-			return behavior, conf, errors.Wrap(err, "failed to load env. file")
-		}
-	}
-
-	//
 	// Load complete configurations
 	//
 	conf, err = microConfig.NewConfig(
@@ -48,7 +40,9 @@ func LoadSharedConfigurations() (Behavior, microConfig.Config, error) {
 			),
 		),
 		microConfig.WithSource(
-			microEnv.NewSource(),
+			microEnv.NewSource(
+				WithEnvFile(envFilePath),
+			),
 		),
 	)
 	if err != nil {
@@ -62,5 +56,20 @@ func LoadSharedConfigurations() (Behavior, microConfig.Config, error) {
 	behavior.ServiceKind = conf.Get("kind").String("undefined")
 	behavior.ShowVersionOnly = conf.Get("version").Bool(false)
 
+	// Append some service shared meta-information
+	conf.Set(generateInstanceID(behavior.ServiceKind), InstanceID)
+
 	return behavior, conf, nil
+}
+
+func WithEnvFile(envFilePath string) microSource.Option {
+	return func(o *microSource.Options) {
+		if envFilePath != "" {
+			_ = godotenv.Load(envFilePath)
+		}
+	}
+}
+
+func generateInstanceID(kind string) string {
+	return kind + "-" + uuid.New().String()[:6]
 }

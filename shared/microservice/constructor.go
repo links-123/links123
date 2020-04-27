@@ -28,7 +28,7 @@ func getBuiltinFlags() []cli.Flag {
 	}
 }
 
-func NewBackendService(name string) micro.Service {
+func NewBackendService(id, name string) micro.Service {
 	microService := micro.NewService(
 		micro.Name(name),
 		micro.Version(version.Version),
@@ -40,8 +40,9 @@ func NewBackendService(name string) micro.Service {
 	return microService
 }
 
-func NewWebService(name string, address string, handler http.Handler) (web.Service, error) {
+func NewWebService(name, id string, address string, handler http.Handler) (web.Service, error) {
 	service := web.NewService(
+		web.Id(id),
 		web.Name(name),
 		web.Version(version.Version),
 		web.Address(address),

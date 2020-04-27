@@ -1,48 +1,50 @@
 package helpers
 
 import (
-	"github.com/emicklei/go-restful"
-	"github.com/links-123/links123/shared/gateway/representation"
-	"log"
 	"net/http"
+
+	"github.com/emicklei/go-restful"
+	"github.com/sirupsen/logrus"
+
+	"github.com/links-123/links123/shared/gateway/representation"
 )
 
-func logError(err error) {
+func logError(logger *logrus.Logger, err error) {
 	var message = "error is empty"
 
 	if err != nil {
 		message = err.Error()
 	}
 
-	log.Printf("   ERROR  | error during request proccessing, %s", message)
+	logger.Errorf("error during request processing, %s", message)
 }
 
-func ResponseWithBadRequest(response *restful.Response, err error, message string) {
-	logError(err)
+func RespondWithBadRequest(response *restful.Response, log *logrus.Logger, err error, message string) {
+	logError(log, err)
 
 	if err := response.WriteHeaderAndEntity(http.StatusBadRequest, &representation.ErrorResponse{
 		Message: message,
 	}); err != nil {
-		logError(err)
+		logError(log, err)
 	}
 }
 
-func ResponseWithInternalError(response *restful.Response, err error) {
-	logError(err)
+func RespondWithInternalError(response *restful.Response, log *logrus.Logger, err error) {
+	logError(log, err)
 
 	if err := response.WriteHeaderAndEntity(http.StatusInternalServerError, &representation.ErrorResponse{
 		Message: http.StatusText(http.StatusInternalServerError),
 	}); err != nil {
-		logError(err)
+		logError(log, err)
 	}
 }
 
-func ResponseWithOK(response *restful.Response, data interface{}) {
+func RespondWithOK(response *restful.Response, log *logrus.Logger, data interface{}) {
 	if err := response.WriteHeaderAndEntity(http.StatusOK, data); err != nil {
-		logError(err)
+		logError(log, err)
 	}
 }
 
-func ResponseWithNoContent(response *restful.Response) {
+func RespondWithNoContent(response *restful.Response, log *logrus.Logger) {
 	response.WriteHeader(http.StatusNoContent)
 }

@@ -3,6 +3,8 @@ package service
 import (
 	"net/http"
 
+	"github.com/sirupsen/logrus"
+
 	"github.com/links-123/links123/app"
 	linkPb "github.com/links-123/links123/app/services/link/pb/link"
 
@@ -12,14 +14,17 @@ import (
 )
 
 type linkRESTService struct {
+	log               *logrus.Logger
 	webService        *restful.WebService
 	linkServiceClient linkPb.LinkDomainService
 }
 
 func NewLinkRESTService(
+	logger *logrus.Logger,
 	linkServiceClient linkPb.LinkDomainService,
 ) app.RESTAPIVersionedService {
 	rcv := &linkRESTService{
+		log:               logger,
 		webService:        &restful.WebService{},
 		linkServiceClient: linkServiceClient,
 	}

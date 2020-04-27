@@ -21,7 +21,8 @@ const (
 // Configuration container
 //
 type serviceConfiguration struct {
-	mongoURL string
+	instanceID string
+	mongoURL   string
 }
 
 func (rcv *serviceConfiguration) Validate() error {
@@ -32,16 +33,20 @@ func (rcv *serviceConfiguration) Validate() error {
 
 func extractConfigurations(configSource config.Config) (*serviceConfiguration, error) {
 	builder := newServiceConfigurationBuilder().
-		SetMongoURL(
-			configSource.
-				Get(configuration.EnvVarAsConfigurationPath(mongoURLParameter)...).
-				String(mongoURLParameterDefaultValue),
+		SetInstanceID(configSource.
+			Get(configuration.InstanceID).
+			String(""),
+		).
+		SetMongoURL(configSource.
+			Get(configuration.EnvVarAsConfigurationPath(mongoURLParameter)...).
+			String(mongoURLParameterDefaultValue),
 		)
 
 	return builder.Build()
 }
 
 type serviceConfigurationBuilder struct {
+	instanceID   string
 	serveAddress string
 }
 
@@ -51,6 +56,11 @@ func newServiceConfigurationBuilder() *serviceConfigurationBuilder {
 	}
 }
 
+func (rcv *serviceConfigurationBuilder) SetInstanceID(id string) *serviceConfigurationBuilder {
+	rcv.instanceID = id
+	return rcv
+}
+
 func (rcv *serviceConfigurationBuilder) SetMongoURL(address string) *serviceConfigurationBuilder {
 	rcv.serveAddress = address
 	return rcv
@@ -58,7 +68,8 @@ func (rcv *serviceConfigurationBuilder) SetMongoURL(address string) *serviceConf
 
 func (rcv *serviceConfigurationBuilder) Build() (*serviceConfiguration, error) {
 	conf := &serviceConfiguration{
-		mongoURL: rcv.serveAddress,
+		instanceID: rcv.instanceID,
+		mongoURL:   rcv.serveAddress,
 	}
 
 	if err := conf.Validate(); err != nil {
