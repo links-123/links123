@@ -9,6 +9,7 @@ require (
 	github.com/globalsign/mgo v0.0.0-20180615134936-113d3961e731
 	github.com/go-ozzo/ozzo-validation v3.5.0+incompatible
 	github.com/golang/protobuf v1.3.5
+	github.com/google/btree v1.0.0 // indirect
 	github.com/google/uuid v1.1.1
 	github.com/ic2hrmk/lokigrus v0.0.4
 	github.com/joho/godotenv v1.3.0
