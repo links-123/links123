@@ -10,8 +10,8 @@ import (
 )
 
 func (rcv *linkRESTService) notImplemented(request *restful.Request, response *restful.Response) {
-	helpers.ResponseWithBadRequest(
-		response, errors.New("attempt to access not implemented API"),
+	helpers.RespondWithBadRequest(
+		response, rcv.log, errors.New("attempt to access not implemented API"),
 		representation.ErrNotImplemented,
 	)
 }

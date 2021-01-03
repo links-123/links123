@@ -11,8 +11,11 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./compose/compose.env
-    command: "--kind=link-rest-gtw"
-    restart: always
+    command: "--kind=links123.link.restgtw"
+    restart: on-failure
+    depends_on:
+      - link-srv
+      - consul
 
   link-srv:
     build:
@@ -20,18 +23,21 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./compose/compose.env
-    restart: always
+    restart: on-failure
+    command: "--kind=links123.link.srv"
     depends_on:
       - mongo
-    command: "--kind=link-srv"
+      - consul
 
   #
-  # 3-rd parties
+  # Storage
   #
+
   mongo:
     image: mongo:3.4
     logging:
       driver: none
+    restart: on-failure
     volumes:
       - links_mongo_data:/data/db
 
@@ -43,8 +49,25 @@ services:
       - mongo
     logging:
       driver: none
+    restart: on-failure
     depends_on:
       - mongo
+
+  #
+  # Registry
+  #
+
+  consul:
+    image: consul:1.7.2
+    ports:
+      - "8500:8500"
+    restart: on-failure
+    logging:
+      driver: none
+
+  #
+  # Proxy
+  #
 
   nginx-rest-api:
     image: nginx:1.17.6
@@ -58,4 +81,36 @@ services:
       - ./compose/nginx/api_gateways.conf:/etc/nginx/api_gateways.conf
       - ./compose/nginx/api_json_errors.conf:/etc/nginx/api_json_errors.conf
       - ./compose/nginx/nginx.conf:/etc/nginx/nginx.conf
-    restart: always
+    restart: on-failure
+
+  diplomat:
+    image: ic2h/diplomat:0.0.1
+    ports:
+      - "8501:80"
+    depends_on:
+      - consul
+    restart: on-failure
+
+  ##
+  # Monitoring
+  #
+
+  grafana:
+    image: grafana/grafana:6.7.2
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./compose/grafana/datasources/loki.yml:/etc/grafana/provisioning/datasources/loki.yml
+    restart: on-failure
+    logging:
+      driver: none
+
+  loki:
+    image: grafana/loki:1.4.0
+    restart: on-failure
+    ports:
+      - "3100:3100"
+    logging:
+      driver: none
+    depends_on:
+      - grafana

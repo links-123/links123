@@ -12,7 +12,8 @@ func InitConnection(mongoURL, mongoDB string) (*mgo.Database, error) {
 
 	session, err := mgo.Dial(mongoURL)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to establish connection to Mongo DB")
+		return nil, errors.Wrapf(err, "unable to establish connection to Mongo DB [url=%s db=%s]",
+			mongoURL, mongoDB)
 	}
 
 	return session.DB(mongoDB), nil

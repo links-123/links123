@@ -13,19 +13,21 @@ import (
 // Creates link to persistence
 //
 func (rcv *linkDomainService) CreateLink(
-	ctx context.Context, in *link.CreateLinkRequest,
-) (*link.CreateLinkResponse, error) {
+	ctx context.Context,
+	in *link.CreateLinkRequest,
+	out *link.CreateLinkResponse,
+) error {
 	var err error
 
 	//
 	// Validation
 	//
 	if in == nil {
-		return nil, rcv.wrapInvalidRequest(errors.New("request is empty"))
+		return rcv.wrapInvalidRequest(errors.New("request is empty"))
 	}
 
 	if err = in.Validate(); err != nil {
-		return nil, rcv.wrapInvalidRequest(err)
+		return rcv.wrapInvalidRequest(err)
 	}
 
 	//
@@ -43,17 +45,17 @@ func (rcv *linkDomainService) CreateLink(
 	}
 
 	if _, err = rcv.linkRepository.Save(snapshot); err != nil {
-		return nil, rcv.wrapInternalError(errors.Wrap(err, "unable to persist link"))
+		return rcv.wrapInternalError(errors.Wrap(err, "unable to persist link"))
 	}
 
 	//
 	// Assemble response
 	//
-	return &link.CreateLinkResponse{
-		Link: &link.LinkEntity{
-			LinkID:  snapshot.LinkID,
-			Name:    snapshot.Name,
-			Address: snapshot.Address,
-		},
-	}, nil
+	out.Link = &link.LinkEntity{
+		LinkID:  snapshot.LinkID,
+		Name:    snapshot.Name,
+		Address: snapshot.Address,
+	}
+
+	return nil
 }

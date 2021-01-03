@@ -18,12 +18,12 @@ func (rcv *linkRESTService) deleteLink(request *restful.Request, response *restf
 	)
 
 	if err = request.ReadEntity(deleteRequest); err != nil {
-		helpers.ResponseWithBadRequest(response, err, representation.ErrIncorrectRequest)
+		helpers.RespondWithBadRequest(response, rcv.log, err, representation.ErrIncorrectRequest)
 		return
 	}
 
 	if err = deleteRequest.Validate(); err != nil {
-		helpers.ResponseWithBadRequest(response, err, representation.ErrInvalidDeleteRequest)
+		helpers.RespondWithBadRequest(response, rcv.log, err, representation.ErrInvalidDeleteRequest)
 		return
 	}
 
@@ -36,12 +36,12 @@ func (rcv *linkRESTService) deleteLink(request *restful.Request, response *restf
 			LinkID: deleteRequest.LinkID,
 		})
 	if err != nil {
-		helpers.ResponseWithInternalError(response, err)
+		helpers.RespondWithInternalError(response, rcv.log, err)
 		return
 	}
 
 	//
 	// Assemble response
 	//
-	helpers.ResponseWithNoContent(response)
+	helpers.RespondWithNoContent(response, rcv.log)
 }

@@ -3,9 +3,10 @@ package mongo
 import (
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
+	"github.com/pkg/errors"
+
 	"github.com/links-123/links123/app/services/link/persistence/model"
 	"github.com/links-123/links123/app/services/link/persistence/repository"
-	"github.com/pkg/errors"
 )
 
 const linksCollection = "links"

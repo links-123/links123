@@ -1,8 +1,11 @@
 package registry
 
 import (
-	"github.com/links-123/links123/app"
+	"github.com/micro/go-micro/v2/config"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
+
+	"github.com/links-123/links123/app"
 )
 
 type RegistryContainer map[string]FactoryMethod
@@ -11,7 +14,7 @@ func NewRegistryContainer() RegistryContainer {
 	return make(RegistryContainer)
 }
 
-type FactoryMethod func() (app.MicroService, error)
+type FactoryMethod func(config.Config, *logrus.Logger) (app.MicroService, error)
 
 func (c RegistryContainer) Add(serviceName string, fabric FactoryMethod) {
 	c[serviceName] = fabric

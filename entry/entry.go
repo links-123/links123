@@ -1,41 +1,42 @@
 package main
 
 import (
-	"github.com/links-123/links123/shared/version"
-	"log"
+	"fmt"
+	"os"
+
+	"github.com/pkg/errors"
 
 	linkRESTGateway "github.com/links-123/links123/app/gateways/link/link-rest-gtw"
 	linkService "github.com/links-123/links123/app/services/link"
 
-	"github.com/pkg/errors"
-
-	"github.com/links-123/links123/registry"
-	"github.com/links-123/links123/shared/cmd"
-	"github.com/links-123/links123/shared/env"
+	"github.com/links-123/links123/shared/configuration"
+	"github.com/links-123/links123/shared/logging"
+	"github.com/links-123/links123/shared/registry"
+	"github.com/links-123/links123/shared/version"
 )
 
 func main() {
-	//
-	// Load startup flags
-	//
-	flags := cmd.LoadFlags()
+	behavior, config, err := configuration.LoadSharedConfigurations()
+	if err != nil {
+		fmt.Println(errors.Wrap(err, "failed to startup parse configurations"))
+		os.Exit(1)
+	}
 
 	//
 	// Check for version request
 	//
-	if flags.ShowVersionOnly {
-		log.Print(version.GetVersion())
+	if behavior.ShowVersionOnly {
+		fmt.Print(version.GetVersion())
 		return
 	}
 
 	//
-	// Load env.
+	// Initialize logger
 	//
-	if flags.EnvFile != "" {
-		err := env.LoadEnvFile(flags.EnvFile)
-		if err != nil {
-			log.Fatal(errors.Wrap(err, "failed to load environment configurations"))
-		}
+	logger, err := logging.NewLogger(config)
+	if err != nil {
+		fmt.Println(errors.Wrap(err, "failed to initialize logging"))
+		os.Exit(1)
 	}
 
 	//
@@ -46,22 +47,25 @@ func main() {
 	registryContainer.Add(linkRESTGateway.ServiceName, linkRESTGateway.FactoryMethod)
 	registryContainer.Add(linkService.ServiceName, linkService.FactoryMethod)
 
-	serviceFactory, err := registryContainer.Get(flags.Kind)
+	serviceFactory, err := registryContainer.Get(behavior.ServiceKind)
 	if err != nil {
-		log.Fatal(errors.Wrap(err, "failed to initialize service"))
+		logger.Fatal(errors.Wrap(err, "failed to initialize service"))
 	}
 
 	//
 	// Create service
 	//
-	service, err := serviceFactory()
+	service, err := serviceFactory(config, logger)
 	if err != nil {
-		log.Fatal(errors.Wrapf(err, "failed to initialize application [%s]", flags.Kind))
+		logger.Fatal(errors.Wrapf(err, "failed to initialize application [%s]", behavior.ServiceKind))
 	}
 
 	//
 	// Run till the death comes
 	//
-	log.Printf("%s, service [%s] is started", version.GetVersion(), flags.Kind)
-	log.Fatal(service.Serve())
+	logger.Infof("%s, service [%s] is started", version.GetVersion(), behavior.ServiceKind)
+	if err = service.Run(); err != nil {
+		logger.Fatal(errors.Wrapf(err, "service [%s] stopped unexpectedly due to error", behavior.ServiceKind))
+	}
+	logger.Infof("service [%s] gracefully shutted down, bye bye!", behavior.ServiceKind)
 }

@@ -15,7 +15,7 @@ _LDFLAGS += -X github.com/links-123/links123/shared/version.BuiltAt=$(shell date
 # Building
 
 build: clean
-	@go build -o $(_APP_NAME) -ldflags "$(_LDFLAGS)" entry/entry.go
+	@CGO_ENABLED=0 go build -o $(_APP_NAME) -ldflags "$(_LDFLAGS)" entry/entry.go entry/plugins.go
 	@./$(_APP_NAME) --version
 
 clean:
@@ -29,7 +29,7 @@ generate-proto:
 # Linting
 
 install-linter:
-	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(GOPATH)/bin v1.24.0
+	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(GOPATH)/bin v1.25.0
 
 run-linter:
 	golangci-lint run -v

@@ -44,6 +44,13 @@ func (m *CreateLinkRequest) Validate() error {
 		return nil
 	}
 
+	if m.GetLink() == nil {
+		return CreateLinkRequestValidationError{
+			field:  "Link",
+			reason: "value is required",
+		}
+	}
+
 	if v, ok := interface{}(m.GetLink()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CreateLinkRequestValidationError{
@@ -198,9 +205,19 @@ func (m *DeleteLinkRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for LinkID
+	if utf8.RuneCountInString(m.GetLinkID()) < 1 {
+		return DeleteLinkRequestValidationError{
+			field:  "LinkID",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
-	// no validation rules for UserID
+	if utf8.RuneCountInString(m.GetUserID()) < 1 {
+		return DeleteLinkRequestValidationError{
+			field:  "UserID",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
 	return nil
 }
@@ -336,7 +353,12 @@ func (m *FindLinksRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for UserID
+	if utf8.RuneCountInString(m.GetUserID()) < 1 {
+		return FindLinksRequestValidationError{
+			field:  "UserID",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
 	// no validation rules for Limit
 
@@ -494,9 +516,19 @@ func (m *LinkEntity) Validate() error {
 
 	// no validation rules for UserID
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		return LinkEntityValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
-	// no validation rules for Address
+	if utf8.RuneCountInString(m.GetAddress()) < 1 {
+		return LinkEntityValidationError{
+			field:  "Address",
+			reason: "value length must be at least 1 runes",
+		}
+	}
 
 	return nil
 }
